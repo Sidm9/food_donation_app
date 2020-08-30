@@ -74,6 +74,10 @@ const LoginScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate('Registeration')}
                 />
 
+                <Button
+                    title="Bypass"
+                    onPress={() => navigation.navigate('Hone')}
+                />
             </Card>
 
         </>

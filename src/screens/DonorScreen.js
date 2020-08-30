@@ -1,50 +1,71 @@
-import React from 'react'
-import { Card, Text, Divider } from 'react-native-elements'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import React, { useState } from 'react'
+import { View } from 'react-native';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
-const DonorScreen = () => {
+const items = [
+    // this is the parent or 'item'
+    {
+        // these are the children or 'sub items'
+        children: [
+            {
+                name: 'Dal',
+                id: 10,
+            },
+            {
+                name: 'Eggs',
+                id: 11,
+            },
+            {
+                name: 'Rice',
+                id: 12,
+            },
+            {
+                name: 'Chapati',
+                id: 13,
+            },
+            {
+                name: 'Fruits',
+                id: 14,
+            },
+            {
+                name: 'Vegetables',
+                id: 15,
+            },
+            {
+                name: 'Lentils',
+                id: 16,
+            },
+            {
+                name: 'Fish',
+                id: 17,
+            },
+            {
+                name: 'Chicken',
+                id: 18,
+            },
+        ],
+    },
+];
+
+export default function DonorScreen() {
+    const [selectedItems, setselectedItems] = useState('')
+
+    const onSelectedItemsChange = (selectedItems) => {
+        setselectedItems(selectedItems)
+    };
+
     return (
-        <>
-            <View style={{ flex: 1, alignItems: "center", flexDirection: 'column', marginLeft: '2%', marginRight: '2%' }}>
-
-                <Text h3 style={{ marginLeft: '2%', marginRight: '2%' }}>Select Your Food Preference</Text>
-                <ScrollView>
-                    <Divider style={{ backgroundColor: 'blue', marginTop: 10, marginLeft: '2%', marginRight: '2%', marginBottom: 10, padding: 1 }} />
-                    <View style={styles.inner_container}>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-                        <Card containerStyle={styles.rect}></Card>
-
-                    </View>
-                </ScrollView>
-
-            </View>
-
-        </>
-    )
+        <View>
+            <SectionedMultiSelect
+                items={items}
+                uniqueKey="id"
+                subKey="children"
+                selectText="Choose some things..."
+                showDropDowns={false}
+                readOnlyHeadings={true}
+                onSelectedItemsChange={onSelectedItemsChange}
+                selectedItems={selectedItems}
+            />
+        </View>
+    );
 }
-
-const styles = StyleSheet.create({
-    inner_container: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        flexWrap: "wrap"
-    },
-    rect: {
-        width: '45%',
-        margin: '2%',
-        height: 120,
-        padding: 0,
-        height: 120,
-        backgroundColor: "white"
-    },
-});
-
-export default DonorScreen
