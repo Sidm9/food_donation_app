@@ -1,5 +1,5 @@
 node_modules/**/*
-src/firebase/
+src/firestore.js
 .expo/*
 npm-debug.*
 *.jks
@@ -9,6 +9,5 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-screens/firestore.js
 # macOS
 .DS_Store
