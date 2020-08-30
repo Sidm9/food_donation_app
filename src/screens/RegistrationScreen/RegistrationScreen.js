@@ -1,107 +1,120 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from './styles';
+import { Input, Text, Button, Card } from 'react-native-elements';
+import firebase from '../../firestore.js';
 
-export default function RegistrationScreen({navigation}) {
-    const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+const RegisterationScreen = ({ navigation }) => {
 
-    const onFooterLinkPress = () => {
-        navigation.navigate('Login')
+    const [emailAddress, setemailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [conPassword, setConPassword] = useState('');
+    const [emailError, setemailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [ConPasswordError, setConPasswordError] = useState('');
+
+    const emailHandler = (value) => {
+        setemailAddress(value);
+        console.log(emailAddress);
     }
 
-    const onRegisterPress = () => {
-        const onRegisterPress = () => {
-            if (password !== confirmPassword) {
-                alert("Passwords don't match.")
-                return
-            }
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then((response) => {
-                    const uid = response.user.uid
-                    const data = {
-                        id: uid,
-                        email,
-                        fullName,
-                    };
-                    const usersRef = firebase.firestore().collection('users')
-                    usersRef
-                        .doc(uid)
-                        .set(data)
-                        .then(() => {
-                            navigation.navigate('Home', {user: data})
-                        })
-                        .catch((error) => {
-                            alert(error)
-                        });
+    const passwordHandler = (value) => {
+        setPassword(value);
+        console.log(password);
+    }
+
+    const conPasswordHandler = (value) => {
+        setConPassword(value);
+        console.log(conPassword);
+    }
+
+    const clearAll = () => {
+        setemailAddress('')
+        setPassword('')
+        setConPassword('')
+        // setemailError('')
+        // setPasswordError('')
+        // setConPasswordError('')
+    }
+    const handleSubmit = () => {
+        // const db = firebase.firestore();
+        // const userRef = db.collection("users").add({
+        //     Email: {emailAddress},
+        //     password : {password},
+        // })
+        // .then(function() {
+        //     console.log("Document successfully written!");
+        // })
+        // .catch(function(error) {
+        //     console.error("Error writing document: ", error);
+        // });
+        if (password.trim() === conPassword.trim()) {
+
+            firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then(() => {
+                console.log("OKKKK");
+            })
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    console.log("This is the error : ", errorCode);
+                    var errorMessage = error.message;
+                    console.log(errorMessage);
+                    if (errorCode === "auth/invalid-email" || errorCode === "auth/email-already-in-use") {
+                        setemailError(errorMessage);
+                        clearAll();
+                    }
+                    if (errorCode === "auth/weak-password") {
+                        setPasswordError(errorMessage);
+                    }
+                    // ...
                 })
-                .catch((error) => {
-                    alert(error)
-            });
+        }
+        else {
+            setConPasswordError('Passwords Should Match');
+            clearAll();
         }
     }
-
     return (
-        <View style={styles.container}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
-                keyboardShouldPersistTaps="always">
-                <Image
-                    style={styles.logo}
-                    source={require('../../../assets/icon.png')}
+        <>
+            <Card>
+
+                <Text h1>Register</Text>
+                <Input
+                    onChangeText={(val) => { emailHandler(val) }}
+                    placeholder=' Email Address'
+                    leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+                    errorMessage={emailError}
+
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Full Name'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setFullName(text)}
-                    value={fullName}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Input
+                    secureTextEntry={true}
+                    onChangeText={(val) => { passwordHandler(val) }}
+                    placeholder=' Password'
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    errorMessage={passwordError}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Input
+                    secureTextEntry={true}
+                    onChangeText={(val) => { conPasswordHandler(val) }}
+                    placeholder=' Enter Password Again'
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    errorMessage={ConPasswordError}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Button
+                    onPress={handleSubmit}
+                    title="Register"
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Confirm Password'
-                    onChangeText={(text) => setConfirmPassword(text)}
-                    value={confirmPassword}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Button
+                    title="I'm a member"
+                    onPress={() => navigation.push('Login')}
                 />
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Create account</Text>
-                </TouchableOpacity>
-                <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
-                </View>
-            </KeyboardAwareScrollView>
-        </View>
+
+            </Card>
+
+        </>
     )
 }
+
+export default RegisterationScreen;

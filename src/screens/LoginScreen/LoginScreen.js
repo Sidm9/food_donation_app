@@ -1,82 +1,83 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from './styles';
+import { Input, Text, Button, Card } from 'react-native-elements';
+import firebase from '../../firestore.js';
 
-export default function LoginScreen({navigation}) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+const LoginScreen = ({ navigation }) => {
 
-    const onFooterLinkPress = () => {
-        navigation.navigate('Registration')
+    const [emailAddress, setemailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailError, setemailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const emailHandler = (value) => {
+        setemailAddress(value);
+        console.log(emailAddress);
     }
 
-    const onLoginPress = () => {
-        const onLoginPress = () => {
-            firebase
-                .auth()
-                .signInWithEmailAndPassword(email, password)
-                .then((response) => {
-                    const uid = response.user.uid
-                    const usersRef = firebase.firestore().collection('users')
-                    usersRef
-                        .doc(uid)
-                        .get()
-                        .then(firestoreDocument => {
-                            if (!firestoreDocument.exists) {
-                                alert("User does not exist anymore.")
-                                return;
-                            }
-                            const user = firestoreDocument.data()
-                            navigation.navigate('Home', {user})
-                        })
-                        .catch(error => {
-                            alert(error)
-                        });
-                })
-                .catch(error => {
-                    alert(error)
-                })
-        }
+    const passwordHandler = (value) => {
+        setPassword(value);
+        console.log(password);
     }
 
+
+    const handleSubmit = () => {
+        firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
+            console.log("You are in !!");
+            navigation.navigate('Home');
+        })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                console.log("This is the error : ", errorCode);
+                var errorMessage = error.message;
+                console.log(errorMessage);
+                if (errorCode === "auth/invalid-email") {
+                    setemailError(errorMessage);
+                }
+                else { setemailError('') }
+
+                if (errorCode === "auth/wrong-password") {
+                    setPasswordError(errorMessage);
+                }
+                else { setPasswordError('') }
+                // ...
+            })
+    }
     return (
-        <View style={styles.container}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
-                keyboardShouldPersistTaps="always">
-                <Image
-                    style={styles.logo}
-                    source={require('../../../assets/icon.png')}
+        <>
+            <Card>
+
+                <Text h1 padding>Login</Text>
+                <Input
+                    placeholder=' Email Adress'
+                    onChangeText={(val) => { emailHandler(val) }}
+                    leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+                    errorMessage={emailError}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Input
+                    placeholder=' Password'
+                    secureTextEntry={true}
+                    onChangeText={(val) => { passwordHandler(val) }}
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    errorMessage={passwordError}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+
+                <Button
+                    title="Login"
+                    onPress={handleSubmit}
                 />
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onLoginPress()}>
-                    <Text style={styles.buttonTitle}>Log in</Text>
-                </TouchableOpacity>
-                <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
-                </View>
-            </KeyboardAwareScrollView>
-        </View>
+
+
+                <Button
+                    title="I'm new here"
+                    onPress={() => navigation.navigate('Registeration')}
+                />
+
+            </Card>
+
+        </>
     )
 }
+
+export default LoginScreen;
