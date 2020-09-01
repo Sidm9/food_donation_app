@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import { View, Button, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Text, Input } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 
 const TimePicker = () => {
     const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('🤣');
-    const [dateShow, setdateShow] = useState()
-    const [TimeShow, setTimeShow] = useState()
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date || time;
+        const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        setTime(currentDate);
-        setdateShow(date.toDateString())
-        setTimeShow(time.toLocaleTimeString())
     };
 
     const showMode = (currentMode) => {
@@ -35,7 +29,7 @@ const TimePicker = () => {
 
     return (
         <View style={{ flex: 1, width: '100%' }}>
-            <View style={{ display: "flex", flexDirection : "column"}}>
+            <View style={{ display: "flex", flexDirection: "column" }}>
                 <View>
                     <Button onPress={showDatepicker} title="Show date picker!" />
                 </View>
@@ -56,7 +50,7 @@ const TimePicker = () => {
             )}
 
             <Input
-                placeholder={dateShow}
+                placeholder={date.toDateString()}
                 editable={false}
                 style={{ color: 'black' }}
                 label="Date of Pickup"
@@ -64,7 +58,7 @@ const TimePicker = () => {
             />
 
             <Input
-                placeholder={TimeShow}
+                placeholder={date.toLocaleTimeString()}
                 editable={false}
                 style={{ color: 'black' }}
                 label="Time of Pickup"
