@@ -19,11 +19,14 @@ export default function App() {
       <Stack.Navigator>
 
 
+        
+        <Stack.Screen name="Donor" component={DonorScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Registeration" component={RegistrationScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+
         <Stack.Screen name="Volunteer" component={VolunteerScreen} />
-        <Stack.Screen name="Donor" component={DonorScreen} />
+
 
 
       </Stack.Navigator>

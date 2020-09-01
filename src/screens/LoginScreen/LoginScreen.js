@@ -40,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
                     setPasswordError(errorMessage);
                 }
                 else { setPasswordError('') }
-                // ...
+                
             })
     }
     return (
@@ -76,7 +76,7 @@ const LoginScreen = ({ navigation }) => {
 
                 <Button
                     title="Bypass"
-                    onPress={() => navigation.navigate('Hone')}
+                    onPress={() => navigation.navigate('Home')}
                 />
             </Card>
 

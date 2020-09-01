@@ -1,71 +1,85 @@
 import React, { useState } from 'react'
-import { View } from 'react-native';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-
+import { View, FlatList, Picker, TimePickerAndroid } from 'react-native';
+import { Text, Button, Input } from 'react-native-elements';
+import { functions } from 'firebase';
+import TimePicker from '../screens/TimePicker';
 const items = [
     // this is the parent or 'item'
     {
-        // these are the children or 'sub items'
-        children: [
-            {
-                name: 'Dal',
-                id: 10,
-            },
-            {
-                name: 'Eggs',
-                id: 11,
-            },
-            {
-                name: 'Rice',
-                id: 12,
-            },
-            {
-                name: 'Chapati',
-                id: 13,
-            },
-            {
-                name: 'Fruits',
-                id: 14,
-            },
-            {
-                name: 'Vegetables',
-                id: 15,
-            },
-            {
-                name: 'Lentils',
-                id: 16,
-            },
-            {
-                name: 'Fish',
-                id: 17,
-            },
-            {
-                name: 'Chicken',
-                id: 18,
-            },
-        ],
+        name: 'Dal',
+        id: 1,
+    },
+    {
+        name: 'Eggs',
+        id: 2,
+    },
+    {
+        name: 'Rice',
+        id: 3,
+    },
+    {
+        name: 'Chapati',
+        id: 4,
+    },
+    {
+        name: 'Fruits',
+        id: 5,
+    },
+    {
+        name: 'Vegetables',
+        id: 6,
+    },
+    {
+        name: 'Lentils',
+        id: 7,
+    },
+    {
+        name: 'Fish',
+        id: 8,
+    },
+    {
+        name: 'Chicken',
+        id: 9,
     },
 ];
 
-export default function DonorScreen() {
-    const [selectedItems, setselectedItems] = useState('')
+const DonorScreen = () => {
 
-    const onSelectedItemsChange = (selectedItems) => {
-        setselectedItems(selectedItems)
-    };
+    const [emailAddress, setemailAddress] = useState('');
+
+    const emailHandler = (value) => {
+        setemailAddress(value);
+        console.log(emailAddress);
+    }
 
     return (
-        <View>
-            <SectionedMultiSelect
-                items={items}
-                uniqueKey="id"
-                subKey="children"
-                selectText="Choose some things..."
-                showDropDowns={false}
-                readOnlyHeadings={true}
-                onSelectedItemsChange={onSelectedItemsChange}
-                selectedItems={selectedItems}
+
+        <View style={{ flex: 1, alignItems: "center", flexDirection: "column" }}>
+
+            <Text h2 style={{ textAlign: "left", marginBottom: 20 }}> Donate Food Details </Text>
+
+
+            <Input
+                placeholder='221 Baker Street...'
+                label="Pickup Where?"
+                onChangeText={(val) => { emailHandler(val) }}
             />
+
+            <Input
+                placeholder='Rice , Lentils , Daal'
+                label="Food Item(s)"
+                onChangeText={(val) => { emailHandler(val) }}
+            />
+
+            <Input
+                placeholder=' Email Adress'
+                label="Pickup Where?"
+                onChangeText={(val) => { emailHandler(val) }}
+            />
+
+            <TimePicker />
+
         </View>
     );
 }
+export default DonorScreen;
