@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { View, SafeAreaView, ScrollView } from 'react-native';
-import { Text, Button, Input } from 'react-native-elements';
+import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { functions } from 'firebase';
-
 
 const DonorScreen = ({ navigation }) => {
 
@@ -56,6 +55,10 @@ const DonorScreen = ({ navigation }) => {
             showMode('time');
         };
 
+
+
+
+
         return (
             <View style={{ flex: 1, width: '100%' }}>
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin: '2%', marginBottom: '7%' }}>
@@ -81,7 +84,6 @@ const DonorScreen = ({ navigation }) => {
                 <Input
                     placeholder={date.toDateString()}
                     editable={false}
-                    style={{ color: 'black' }}
                     label="Date of Pickup"
                     onChangeText={(val) => { emailHandler(val) }}
                 />
@@ -98,6 +100,14 @@ const DonorScreen = ({ navigation }) => {
             </View>
         );
     };
+
+    // const theme = {
+    //     Text: {
+    //         style: {
+    //             color: "red"
+    //         }
+    //     }
+    // };
 
     return (
         <>
@@ -123,8 +133,13 @@ const DonorScreen = ({ navigation }) => {
                     <TimePicker />
 
                 </View>
-                
-                <Button containerStyle={{ width: '50%' }} title="Nsssext" onPress={() => { navigation.push('ImageScreen') }} />
+
+                {/* <Button containerStyle={{ width: '50%' }}  title="Nsssext" onPress={() => { navigation.push('ImageScreen') }} />
+                     */}
+
+                {/* <ThemeProvider theme={theme}>
+                    <Text style = {{color : 'red'}}>wef</Text>
+                </ThemeProvider> */}
 
             </View>
 

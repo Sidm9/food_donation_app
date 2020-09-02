@@ -1,8 +1,8 @@
-import { ThemeProvider, Text, Button, Input ,} from 'react-native-elements';
-
 const theme = {
-    Button: {
-        raised: true,
-    },
+    Text: {
+        style: {
+            color: "red"
+        }
+    }
 };
-export default theme
+export default theme;
