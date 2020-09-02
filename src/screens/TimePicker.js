@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Button, Platform } from 'react-native';
+import { View, Button, Platform, SafeAreaView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Input } from 'react-native-elements';
 
-const TimePicker = () => {
+const TimePicker = (props) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -12,6 +12,9 @@ const TimePicker = () => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
+
+        // pros.callBack_(date);
+        props.callBack(date);
     };
 
     const showMode = (currentMode) => {
@@ -28,13 +31,13 @@ const TimePicker = () => {
     };
 
     return (
-        <View style={{ flex: 1, width: '100%' }}>
-            <View style={{ display: "flex", flexDirection: "column" }}>
+        <SafeAreaView style={{ flex: 1, width: '100%' }}>
+            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin : '2%' , marginBottom : '7%' }}>
                 <View>
-                    <Button onPress={showDatepicker} title="Show date picker!" />
+                    <Button onPress={showDatepicker} title="Change Date" />
                 </View>
                 <View>
-                    <Button onPress={showTimepicker} title="Show time picker!" />
+                    <Button onPress={showTimepicker} title="Change Time" />
                 </View>
             </View>
             {show && (
@@ -66,7 +69,7 @@ const TimePicker = () => {
             />
 
 
-        </View>
+        </SafeAreaView>
     );
 };
 export default TimePicker;

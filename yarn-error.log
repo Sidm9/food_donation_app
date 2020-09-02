@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add expo-inage-picker
 
 PATH: 
   C:\Python38\Scripts\;C:\Python38\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Dev-Cpp\MinGW64\bin;C:\Program Files\Java\jre1.8.0_211\bin;C:\jdk1.8.0_111\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\ProgramData\chocolatey\bin;C:\Users\SIDDHARTH\AppData\Local\Android\Sdk\emulator;C:\Users\SIDDHARTH\AppData\Local\Programs\Python\Python38-32;C:\Users\SIDDHARTH\AppData\Local\Programs\Python\Python38\Scripts;C:\Users\SIDDHARTH\AppData\Local\GitHubDesktop\bin;C:\Users\SIDDHARTH\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\SIDDHARTH\AppData\Roaming\npm;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.5.0\;C:\Program Files\Git\bin\;C:\Program Files\Git\cmd\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\nodejs\;C:\Users\SIDDHARTH\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\SIDDHARTH\AppData\Local\Programs\Python\Python38-32\;C:\Users\SIDDHARTH\AppData\Local\GitHubDesktop\bin;C:\Users\SIDDHARTH\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\SIDDHARTH\AppData\Local\Yarn\bin;C:\Users\SIDDHARTH\AppData\Local\Microsoft\WindowsApps;C:\Users\SIDDHARTH\AppData\Roaming\npm;D:\Flutter\flutter\bin;
@@ -14,12 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: D:\REACT\RN\food-donation-app\package.json: Unexpected token } in JSON at position 1045
-      at JSON.parse (<anonymous>)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+  Error: https://registry.yarnpkg.com/expo-inage-picker: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66096:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140748:22)
+      at Request.emit (events.js:314:20)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141720:10)
+      at Request.emit (events.js:314:20)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141642:12)
+      at Object.onceWrapper (events.js:420:28)
+      at IncomingMessage.emit (events.js:326:22)
+      at endReadableNT (_stream_readable.js:1226:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {
@@ -32,6 +37,7 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@react-native-community/datetimepicker": "2.4.0",
       "@react-native-community/masked-view": "0.1.10",
       "@react-navigation/native": "^5.7.3",
       "@react-navigation/stack": "^5.9.0",
@@ -51,7 +57,7 @@ npm manifest:
       "react-native-safe-area-context": "~3.0.7",
       "react-native-screens": "~2.9.0",
       "react-native-sectioned-multi-select": "^0.7.7",
-      "react-native-web": "~0.11.7",
+      "react-native-web": "~0.11.7"
     },
     "devDependencies": {
       "@babel/core": "^7.8.6",
@@ -1596,6 +1602,13 @@ Lockfile:
       strip-ansi "^5.2.0"
       sudo-prompt "^9.0.0"
       wcwidth "^1.0.1"
+  
+  "@react-native-community/datetimepicker@2.4.0":
+    version "2.4.0"
+    resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-2.4.0.tgz#6b3cf050f507f9b70d31d5a572e1153bb5bd50c9"
+    integrity sha512-ZXPwNAQt4T66PTL20l2nSEbtsn6vtsvFqdYWBfx8aaNKBoCPDygR6SsYzWcIoexKH5wmX0zctSzIsryl+Gtngg==
+    dependencies:
+      invariant "^2.2.4"
   
   "@react-native-community/masked-view@0.1.10":
     version "0.1.10"
@@ -5198,11 +5211,6 @@ Lockfile:
       invariant "^2.2.4"
       prop-types "^15.7.2"
   
-  react-native-image-picker@^2.3.3:
-    version "2.3.3"
-    resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.3.tgz#eaacd4a1ed9e9887613be31f0765478ca2f18a51"
-    integrity sha512-i/7JDnxKkUGSbFY2i7YqFNn3ncJm1YlcrPKXrXmJ/YUElz8tHkuwknuqBd9QCJivMfHX41cmq4XvdBDwIOtO+A==
-  
   react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -6217,11 +6225,6 @@ Lockfile:
     version "7.0.3"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
     integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
-  
-  uuid@^8.3.0:
-    version "8.3.0"
-    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
-    integrity sha512-fX6Z5o4m6XsXBdli9g7DtWgAx+osMsRRZFKma1mIUsLCz6vRvv+pz5VNbyu9UEDzpMWulZfvpgb/cmDXVulYFQ==
   
   vary@~1.1.2:
     version "1.1.2"

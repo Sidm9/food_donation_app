@@ -1,85 +1,136 @@
 import React, { useState } from 'react'
-import { View, FlatList, Picker, TimePickerAndroid } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { functions } from 'firebase';
-import TimePicker from '../screens/TimePicker';
-const items = [
-    // this is the parent or 'item'
-    {
-        name: 'Dal',
-        id: 1,
-    },
-    {
-        name: 'Eggs',
-        id: 2,
-    },
-    {
-        name: 'Rice',
-        id: 3,
-    },
-    {
-        name: 'Chapati',
-        id: 4,
-    },
-    {
-        name: 'Fruits',
-        id: 5,
-    },
-    {
-        name: 'Vegetables',
-        id: 6,
-    },
-    {
-        name: 'Lentils',
-        id: 7,
-    },
-    {
-        name: 'Fish',
-        id: 8,
-    },
-    {
-        name: 'Chicken',
-        id: 9,
-    },
-];
 
-const DonorScreen = () => {
+
+const DonorScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
+
+    const [dateData, setDateData] = useState('');
+    const [timeData, setTimeData] = useState('');
+
 
     const emailHandler = (value) => {
         setemailAddress(value);
         console.log(emailAddress);
     }
 
+
+    const handleTime = (dataFromChild) => {
+
+        setTimeData(dataFromChild);
+    }
+
+
+    // For the time picker
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+
+    const TimePicker = (props) => {
+        // const [date, setDate] = useState(new Date());
+        // const [mode, setMode] = useState('date');
+        // const [show, setShow] = useState(false);
+
+        const onChange = (event, selectedDate) => {
+            const currentDate = selectedDate || date;
+            setShow(Platform.OS === 'ios');
+            setDate(currentDate);
+
+        };
+
+        const showMode = (currentMode) => {
+            setShow(true);
+            setMode(currentMode);
+        };
+
+        const showDatepicker = () => {
+            showMode('date');
+        };
+
+        const showTimepicker = () => {
+            showMode('time');
+        };
+
+        return (
+            <View style={{ flex: 1, width: '100%' }}>
+                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin: '2%', marginBottom: '7%' }}>
+                    <View>
+                        <Button raised onPress={showDatepicker} title="Change Date" />
+                    </View>
+                    <View>
+                        <Button raised onPress={showTimepicker} title="Change Time" />
+                    </View>
+                </View>
+                {show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        display="default"
+                        minimumDate={new Date()}
+                        onChange={onChange}
+                    />
+                )}
+
+                <Input
+                    placeholder={date.toDateString()}
+                    editable={false}
+                    style={{ color: 'black' }}
+                    label="Date of Pickup"
+                    onChangeText={(val) => { emailHandler(val) }}
+                />
+
+                <Input
+                    placeholder={date.toLocaleTimeString()}
+                    editable={false}
+                    style={{ color: 'black' }}
+                    label="Time of Pickup"
+                    onChangeText={(val) => { emailHandler(val) }}
+                />
+
+
+            </View>
+        );
+    };
+
     return (
+        <>
+            <View style={{ flex: 1, alignItems: "center", flexDirection: "column" }}>
 
-        <View style={{ flex: 1, alignItems: "center", flexDirection: "column" }}>
-
-            <Text h2 style={{ textAlign: "left", marginBottom: 20 }}> Donate Food Details </Text>
+                <Text h2 style={{ textAlign: "left", marginBottom: 20 }}> Donate Food Details </Text>
 
 
-            <Input
-                placeholder='221 Baker Street...'
-                label="Pickup Where?"
-                onChangeText={(val) => { emailHandler(val) }}
-            />
+                <Input
+                    placeholder='221 Baker Street...'
+                    label="Pickup Where?"
+                    onChangeText={(val) => { emailHandler(val) }}
+                />
 
-            <Input
-                placeholder='Rice , Lentils , Daal'
-                label="Food Item(s)"
-                onChangeText={(val) => { emailHandler(val) }}
-            />
+                <Input
+                    placeholder='Rice , Lentils , Daal'
+                    label="Food Item(s)"
+                    onChangeText={(val) => { emailHandler(val) }}
+                />
 
-            <Input
-                placeholder=' Email Adress'
-                label="Pickup Where?"
-                onChangeText={(val) => { emailHandler(val) }}
-            />
 
-            <TimePicker />
+                <View style={{ flex: 0.6, width: '100%', borderWidth: 1, height: 200 }}>
+                    <TimePicker />
 
-        </View>
+                </View>
+                
+                <Button containerStyle={{ width: '50%' }} title="Nsssext" onPress={() => { navigation.push('ImageScreen') }} />
+
+            </View>
+
+
+        </>
     );
+
 }
 export default DonorScreen;
