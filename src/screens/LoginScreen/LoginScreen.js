@@ -74,7 +74,7 @@ const LoginScreen = ({ navigation }) => {
 
 
                 <Button
-                    title="Bypass"
+                    title="Bypass (DEVELOPER MODE)"
                     onPress={() => navigation.navigate('Home')}
                 />
 

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Input, Text, Button, Card } from 'react-native-elements';
+import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
+import { View, TouchableOpacity } from 'react-native';
+
 const RegisterationScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -73,10 +75,10 @@ const RegisterationScreen = ({ navigation }) => {
         }
     }
     return (
-        
-            <>
 
-                <Text h1>Register</Text>
+        <ThemeProvider theme={theme}>
+            <View style={theme.mainContainer}>
+                <Text style={theme.headerText}>Create{"\n"}Account</Text>
                 <Input
                     onChangeText={(val) => { emailHandler(val) }}
                     placeholder=' Email Address'
@@ -106,14 +108,13 @@ const RegisterationScreen = ({ navigation }) => {
                     title="Register"
                 />
 
-                <Button
-                    title="I'm a member"
-                    onPress={() => navigation.push('Login')}
-                />
+                <TouchableOpacity onPress={() => navigation.push('Login')}>
+                    <Text style={theme.centerText}> I'm a member</Text>
+                </TouchableOpacity>
+            </View>
+        </ThemeProvider>
 
-            </>
 
-       
     )
 }
 
