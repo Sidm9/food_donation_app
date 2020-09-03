@@ -49,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
 
                 <Text h1 padding>Login</Text>
                 <Input
+                    
                     placeholder=' Email Adress'
                     onChangeText={(val) => { emailHandler(val) }}
                     leftIcon={{ type: 'font-awesome', name: 'envelope' }}
@@ -79,6 +80,7 @@ const LoginScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate('Home')}
                 />
             </Card>
+            {/* <Text style = {{fontFamily : "ProductSans"}}>fjowei</Text> */}
 
         </>
     )

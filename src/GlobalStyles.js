@@ -1,7 +1,12 @@
 const theme = {
     Text: {
         style: {
-            color: "red"
+            color: "red",
+        }
+    },
+    Button: {
+        style: {
+            backgroundColor: 'yellow'
         }
     }
 };

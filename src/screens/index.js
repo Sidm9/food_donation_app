@@ -6,4 +6,6 @@ export { default as RegistrationScreen } from './RegistrationScreen/Registration
 
 export { default as DonorScreen } from './DonorScreen'
 
-export {default as VolunteerScreen } from './VolunteerScreen'
+export { default as VolunteerScreen } from './VolunteerScreen'
+
+export { default as LoadingScreen } from './LoadingScreen'

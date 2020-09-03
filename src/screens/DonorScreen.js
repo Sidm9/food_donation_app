@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { functions } from 'firebase';
+import theme from '../GlobalStyles';
 
 const DonorScreen = ({ navigation }) => {
 
@@ -104,7 +104,7 @@ const DonorScreen = ({ navigation }) => {
     // const theme = {
     //     Text: {
     //         style: {
-    //             color: "red"
+    //             color: "green"
     //         }
     //     }
     // };
@@ -137,9 +137,10 @@ const DonorScreen = ({ navigation }) => {
                 {/* <Button containerStyle={{ width: '50%' }}  title="Nsssext" onPress={() => { navigation.push('ImageScreen') }} />
                      */}
 
-                {/* <ThemeProvider theme={theme}>
-                    <Text style = {{color : 'red'}}>wef</Text>
-                </ThemeProvider> */}
+                <ThemeProvider theme={theme}>
+                    {/* <Text>wef</Text> */}
+                    <Button  title="Next" onPress={() => { navigation.push('ImageScreen') }} />
+                </ThemeProvider>
 
             </View>
 
