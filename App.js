@@ -4,7 +4,7 @@ import { AppLoading } from "expo";
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen , LoadingScreen } from './src/screens'
+import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen, LoadingScreen } from './src/screens'
 
 
 
@@ -37,6 +37,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Donor" component={DonorScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

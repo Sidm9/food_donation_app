@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import theme from '../GlobalStyles';
+import theme from './GlobalStyles';
 
 const DonorScreen = ({ navigation }) => {
 

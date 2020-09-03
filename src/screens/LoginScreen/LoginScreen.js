@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Input, Text, Button, Card } from 'react-native-elements';
+import { Input, Text, Button, Card, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
+import theme from "../GlobalStyles";
 
 const LoginScreen = ({ navigation }) => {
 
@@ -40,14 +41,14 @@ const LoginScreen = ({ navigation }) => {
                     setPasswordError(errorMessage);
                 }
                 else { setPasswordError('') }
-                
+
             })
     }
     return (
         <>
             <Card>
 
-                <Text h1 padding>Login</Text>
+                <Text style={{ fontFamily: 'ProductSans', fontSize: 45, padding: 10 }}>Login</Text>
                 <Input
                     
                     placeholder=' Email Adress'
@@ -69,16 +70,21 @@ const LoginScreen = ({ navigation }) => {
                     onPress={handleSubmit}
                 />
 
-
                 <Button
                     title="I'm new here"
+
+                    buttonStyle={{ backgroundColor: 'red' }}
+                    raised
+                    containerStyle={{ margin: 10 }}
                     onPress={() => navigation.navigate('Registeration')}
                 />
-
-                <Button
-                    title="Bypass"
-                    onPress={() => navigation.navigate('Home')}
-                />
+                <ThemeProvider theme={theme.Button.buttonStyle}>
+                    <Button
+                        title="Bypass"
+                        titleStyle={{ fontFamily: 'ProductSans' }}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                </ThemeProvider>
             </Card>
             {/* <Text style = {{fontFamily : "ProductSans"}}>fjowei</Text> */}
 
