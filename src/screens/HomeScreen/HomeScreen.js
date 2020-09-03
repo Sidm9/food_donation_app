@@ -1,6 +1,7 @@
 import React from 'react'
-import { Card, Text, Image } from 'react-native-elements'
-import { View, Pressable, TouchableOpacity } from 'react-native';
+import { Text, ThemeProvider, Button } from 'react-native-elements'
+import { View } from 'react-native';
+import theme from '../GlobalStyles';
 const HomeScreen = ({ navigation }) => {
 
     const users = [
@@ -13,34 +14,18 @@ const HomeScreen = ({ navigation }) => {
 
     ]
 
-
     return (
-        <>
-            <View style={{ flex: 1, width: '100%', justifyContent: "center", alignItems: 'center' }}>
+        <ThemeProvider theme={theme}>
+            <View style={[theme.mainContainer, theme.mainContainer.center]}>
 
-                <Text h3 style={{ textAlign: 'center' }}> So what's on your mind?</Text>
+                <Text style={[theme.headerText, { marginTop: '2%', marginBottom: '2%', textAlign: 'left' }]}>So what's on your mind?</Text>
 
+                <Button onPress={() => navigation.navigate('Volunteer')} title={users[0].name} />
 
-                <TouchableOpacity style={{ width: '90%' }} onPress={() => navigation.navigate('Volunteer')}>
-                    <Card containerStyle={{ width: '90%' }}>
-
-                        <Text h4 style={{ textAlign: "center" }} >{users[0].name}</Text>
-
-                    </Card>
-
-                </TouchableOpacity >
-
-                <TouchableOpacity style={{ width: '90%' }} onPress={() => navigation.navigate('Donor')}>
-                    <Card containerStyle={{ width: '90%' }} >
-
-                        <Text h4 style={{ textAlign: "center" }} >{users[1].name}</Text>
-
-                    </Card>
-                </TouchableOpacity>
-
+                <Button onPress={() => navigation.navigate('Donor')} title={users[1].name} />
 
             </View>
-        </>
+        </ThemeProvider>
     )
 }
 

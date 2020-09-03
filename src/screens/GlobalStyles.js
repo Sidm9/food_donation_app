@@ -3,16 +3,21 @@ const Theme = {
         marginLeft: '5%',
         marginRight: '5%',
         flex: 1,
-        
+        center: {
+            justifyContent: 'center',
+        },
     },
     headerText: {
         fontSize: 40,
         fontFamily: 'ProductSansBold',
         marginTop: '10%',
-        marginBottom : '10%',
+        marginBottom: '10%',
+        center: {
+            textAlign : 'center',
+        }
     },
     centerText: {
-        width : '100%',
+        width: '100%',
         textAlign: 'center',
     },
     Text: {
@@ -25,7 +30,7 @@ const Theme = {
         },
     },
     Button: {
-        raised : true,
+        raised: true,
         buttonStyle: {
             backgroundColor: '#1DB954',
         },
