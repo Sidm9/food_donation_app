@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Input, Text, Button, Card, ThemeProvider } from 'react-native-elements';
+import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
+import { View, TouchableOpacity } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -45,20 +46,21 @@ const LoginScreen = ({ navigation }) => {
             })
     }
     return (
-        <>
-            <Card>
+        <ThemeProvider theme={theme}>
+            <View style={theme.mainContainer}>
 
-                <Text style={{ fontFamily: 'ProductSans', fontSize: 45, padding: 10 }}>Login</Text>
+                <Text style={theme.headerText}>Welcome{"\n"}Back</Text>
+
                 <Input
-                    
-                    placeholder=' Email Adress'
+
+                    placeholder='Login'
                     onChangeText={(val) => { emailHandler(val) }}
                     leftIcon={{ type: 'font-awesome', name: 'envelope' }}
                     errorMessage={emailError}
                 />
 
                 <Input
-                    placeholder=' Password'
+                    placeholder='Password'
                     secureTextEntry={true}
                     onChangeText={(val) => { passwordHandler(val) }}
                     leftIcon={{ type: 'font-awesome', name: 'key' }}
@@ -70,25 +72,19 @@ const LoginScreen = ({ navigation }) => {
                     onPress={handleSubmit}
                 />
 
+
                 <Button
-                    title="I'm new here"
-
-                    buttonStyle={{ backgroundColor: 'red' }}
-                    raised
-                    containerStyle={{ margin: 10 }}
-                    onPress={() => navigation.navigate('Registeration')}
+                    title="Bypass"
+                    onPress={() => navigation.navigate('Home')}
                 />
-                <ThemeProvider theme={theme.Button.buttonStyle}>
-                    <Button
-                        title="Bypass"
-                        titleStyle={{ fontFamily: 'ProductSans' }}
-                        onPress={() => navigation.navigate('Home')}
-                    />
-                </ThemeProvider>
-            </Card>
-            {/* <Text style = {{fontFamily : "ProductSans"}}>fjowei</Text> */}
 
-        </>
+                <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
+
+                    <Text style={theme.centerText}>I'm new here</Text>
+
+                </TouchableOpacity>
+            </View>
+        </ThemeProvider>
     )
 }
 

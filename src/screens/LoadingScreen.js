@@ -6,34 +6,23 @@ import { ActivityIndicator, View } from 'react-native';
 
 const LoadingScreen = ({ navigation }) => {
     const [loaded, setloaded] = useState(false)
-    const runn = async() => {
+    const runn = async () => {
 
         await Font.loadAsync({
             'ProductSans': require('../../assets/fonts/Product_Sans_Regular.ttf'),
+            'ProductSansBold': require('../../assets/fonts/Product_Sans_Bold.ttf'),
         });
         setloaded(true)
         console.log(loaded)
         if (loaded == true) {
             console.log("eoiurghiwerghierughieruhierughierguhiuer")
-            navigation.navigate("Login");
+            navigation.navigate("Registeration");
         }
     }
 
     useEffect(() => {
 
         runn();
-        // Font.loadAsync({
-        //     'ProductSans': require('../../assets/fonts/Product_Sans_Regular.ttf'),
-        // });
-
-        // setloaded(true)
-
-        // console.log(loaded)
-        // if (loaded == true) {
-        //     console.log("eoiurghiwerghierughieruhierughierguhiuer")
-        //     navigation.navigate("Login");
-        // }
-
 
     }, [loaded, setloaded]);
 

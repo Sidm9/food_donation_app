@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import * as Font from 'expo-font';
-import { AppLoading } from "expo";
+import React from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'

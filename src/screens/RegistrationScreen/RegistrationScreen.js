@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Text, Button, Card } from 'react-native-elements';
 import firebase from '../../firestore.js';
-
+import theme from "../GlobalStyles";
 const RegisterationScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -73,8 +73,8 @@ const RegisterationScreen = ({ navigation }) => {
         }
     }
     return (
-        <>
-            <Card>
+        
+            <>
 
                 <Text h1>Register</Text>
                 <Input
@@ -111,9 +111,9 @@ const RegisterationScreen = ({ navigation }) => {
                     onPress={() => navigation.push('Login')}
                 />
 
-            </Card>
+            </>
 
-        </>
+       
     )
 }
 
