@@ -1,9 +1,10 @@
 import React from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, HeaderTitle } from '@react-navigation/stack'
 import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen, LoadingScreen } from './src/screens'
-
+import theme from './src/screens/GlobalStyles';
+import { StatusBar } from 'expo-status-bar';
 
 
 const Stack = createStackNavigator();
@@ -33,9 +34,18 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
 
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={
+        {
+          headerStyle: {
+            backgroundColor: '#101010',
+          },
+          headerTitleStyle: {
+            color: '#FFFAFA',
+          },
+          headerTintColor: '#fff',
+        }}>
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Donor" component={DonorScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

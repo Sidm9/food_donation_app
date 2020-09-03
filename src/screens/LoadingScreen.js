@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import * as Font from 'expo-font';
+import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, ThemeProvider } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 
 const LoadingScreen = ({ navigation }) => {
@@ -27,13 +29,14 @@ const LoadingScreen = ({ navigation }) => {
     }, [loaded, setloaded]);
 
     return (
-        <>
+
+        <View style={theme.appearanceContainer}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <ActivityIndicator size="large" />
                 <Text style={{ marginTop: 10 }}> Loading... </Text>
-
             </View>
-        </>
+
+        </View>
     );
 
 }

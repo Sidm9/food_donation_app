@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity , StatusBar} from 'react-native';
 
 const RegisterationScreen = ({ navigation }) => {
 
@@ -32,9 +32,6 @@ const RegisterationScreen = ({ navigation }) => {
         setemailAddress('')
         setPassword('')
         setConPassword('')
-        // setemailError('')
-        // setPasswordError('')
-        // setConPasswordError('')
     }
     const handleSubmit = () => {
         // const db = firebase.firestore();
@@ -75,44 +72,46 @@ const RegisterationScreen = ({ navigation }) => {
         }
     }
     return (
+        <View style={theme.appearanceContainer}>
+            <StatusBar barStyle="light-content" backgroundColor='#101010' />
+            <ThemeProvider theme={theme}>
+                <View style={theme.mainContainer}>
+                    <Text style={theme.headerText}>Create{"\n"}Account</Text>
+                    <Input
+                        onChangeText={(val) => { emailHandler(val) }}
+                        placeholder=' Email Address'
+                        leftIcon={{ type: 'material-icons', name: 'email' }}
+                        errorMessage={emailError}
 
-        <ThemeProvider theme={theme}>
-            <View style={theme.mainContainer}>
-                <Text style={theme.headerText}>Create{"\n"}Account</Text>
-                <Input
-                    onChangeText={(val) => { emailHandler(val) }}
-                    placeholder=' Email Address'
-                    leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-                    errorMessage={emailError}
+                    />
 
-                />
+                    <Input
+                        secureTextEntry={true}
+                        onChangeText={(val) => { passwordHandler(val) }}
+                        placeholder=' Password'
+                        leftIcon={{ type: 'font-awesome', name: 'key' }}
+                        errorMessage={passwordError}
+                    />
 
-                <Input
-                    secureTextEntry={true}
-                    onChangeText={(val) => { passwordHandler(val) }}
-                    placeholder=' Password'
-                    leftIcon={{ type: 'font-awesome', name: 'key' }}
-                    errorMessage={passwordError}
-                />
+                    <Input
+                        secureTextEntry={true}
+                        onChangeText={(val) => { conPasswordHandler(val) }}
+                        placeholder=' Enter Password Again'
+                        leftIcon={{ type: 'font-awesome', name: 'key' }}
+                        errorMessage={ConPasswordError}
+                    />
 
-                <Input
-                    secureTextEntry={true}
-                    onChangeText={(val) => { conPasswordHandler(val) }}
-                    placeholder=' Enter Password Again'
-                    leftIcon={{ type: 'font-awesome', name: 'key' }}
-                    errorMessage={ConPasswordError}
-                />
+                    <Button
+                        onPress={handleSubmit}
+                        title="REGISTER"
+                    />
 
-                <Button
-                    onPress={handleSubmit}
-                    title="Register"
-                />
-
-                <TouchableOpacity onPress={() => navigation.push('Login')}>
-                    <Text style={theme.centerText}> I'm a member</Text>
-                </TouchableOpacity>
-            </View>
-        </ThemeProvider>
+                    <TouchableOpacity onPress={() => navigation.push('Login')}>
+                        <Text style={theme.centerText}> I'm a member</Text>
+                    </TouchableOpacity>
+                </View>
+            </ThemeProvider>
+        </View>
 
 
     )

@@ -16,14 +16,16 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <View style={[theme.mainContainer, theme.mainContainer.center]}>
+            <View style={theme.appearanceContainer}>
+                <View style={[theme.mainContainer, theme.mainContainer.center]}>
 
-                <Text style={[theme.headerText, { marginTop: '2%', marginBottom: '2%', textAlign: 'left' }]}>So what's on your mind?</Text>
+                    <Text style={[theme.headerText, { marginTop: '2%', marginBottom: '2%', textAlign: 'left' }]}>So what's on your mind?</Text>
 
-                <Button onPress={() => navigation.navigate('Volunteer')} title={users[0].name} />
+                    <Button onPress={() => navigation.navigate('Volunteer')} title={users[0].name} />
 
-                <Button onPress={() => navigation.navigate('Donor')} title={users[1].name} />
+                    <Button onPress={() => navigation.navigate('Donor')} title={users[1].name} />
 
+                </View>
             </View>
         </ThemeProvider>
     )

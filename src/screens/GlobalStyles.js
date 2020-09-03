@@ -1,4 +1,8 @@
 const Theme = {
+    appearanceContainer: {
+        flex: 1,
+        backgroundColor: '#101010',
+    },
     mainContainer: {
         marginLeft: '5%',
         marginRight: '5%',
@@ -8,21 +12,23 @@ const Theme = {
         },
     },
     headerText: {
+        color: "#F8F8FF",
         fontSize: 40,
         fontFamily: 'ProductSansBold',
         marginTop: '10%',
         marginBottom: '10%',
         center: {
-            textAlign : 'center',
+            textAlign: 'center',
         }
     },
     centerText: {
+        color: "#F8F8FF",
         width: '100%',
         textAlign: 'center',
     },
     Text: {
         style: {
-            color: "black",
+            color: "#F8F8FF",
             fontFamily: "ProductSans",
             marginTop: '1%',
             marginBottom: '1%',
@@ -32,7 +38,7 @@ const Theme = {
     Button: {
         raised: true,
         buttonStyle: {
-            backgroundColor: '#1DB954',
+            backgroundColor: '#1d9b54',
         },
         containerStyle: {
             marginTop: '3%',
@@ -40,8 +46,18 @@ const Theme = {
         },
         titleStyle: {
             fontSize: 18,
+            color: "#F8F8FF",
+            fontFamily : 'ProductSans'
         },
     },
+    Input: {
+        inputStyle: {
+            color: '#F8F8FF'
+        },
+        leftIcon: {
+            color: '#F8F8FF',
+        }
+    }
 
 }
 export default Theme

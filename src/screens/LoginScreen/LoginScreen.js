@@ -46,45 +46,47 @@ const LoginScreen = ({ navigation }) => {
             })
     }
     return (
-        <ThemeProvider theme={theme}>
-            <View style={theme.mainContainer}>
+        <View style={theme.appearanceContainer}>
+            <ThemeProvider theme={theme}>
+                <View style={theme.mainContainer}>
 
-                <Text style={theme.headerText}>Welcome{"\n"}Back</Text>
+                    <Text style={theme.headerText}>Welcome{"\n"}Back</Text>
 
-                <Input
+                    <Input
 
-                    placeholder='Login'
-                    onChangeText={(val) => { emailHandler(val) }}
-                    leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-                    errorMessage={emailError}
-                />
+                        placeholder=' Login'
+                        onChangeText={(val) => { emailHandler(val) }}
+                        leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+                        errorMessage={emailError}
+                    />
 
-                <Input
-                    placeholder='Password'
-                    secureTextEntry={true}
-                    onChangeText={(val) => { passwordHandler(val) }}
-                    leftIcon={{ type: 'font-awesome', name: 'key' }}
-                    errorMessage={passwordError}
-                />
+                    <Input
+                        placeholder=' Password'
+                        secureTextEntry={true}
+                        onChangeText={(val) => { passwordHandler(val) }}
+                        leftIcon={{ type: 'font-awesome', name: 'key' }}
+                        errorMessage={passwordError}
+                    />
 
-                <Button
-                    title="Login"
-                    onPress={handleSubmit}
-                />
+                    <Button
+                        title="LOG IN"
+                        onPress={handleSubmit}
+                    />
 
 
-                <Button
-                    title="Bypass (DEVELOPER MODE)"
-                    onPress={() => navigation.navigate('Home')}
-                />
+                    <Button
+                        title="Bypass (DEV) "
+                        onPress={() => navigation.navigate('Home')}
+                    />
 
-                <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
 
-                    <Text style={theme.centerText}>I'm new here</Text>
+                        <Text style={theme.centerText}>I'm new here</Text>
 
-                </TouchableOpacity>
-            </View>
-        </ThemeProvider>
+                    </TouchableOpacity>
+                </View>
+            </ThemeProvider>
+        </View>
     )
 }
 
