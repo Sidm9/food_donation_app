@@ -17,6 +17,8 @@ const Theme = {
         fontFamily: 'ProductSansBold',
         marginTop: '10%',
         marginBottom: '10%',
+        marginRight: '3%',
+        marginLeft: '3%',
         center: {
             textAlign: 'center',
         }

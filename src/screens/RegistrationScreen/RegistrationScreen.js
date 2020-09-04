@@ -73,7 +73,6 @@ const RegisterationScreen = ({ navigation }) => {
     }
     return (
         <View style={theme.appearanceContainer}>
-            <StatusBar barStyle="light-content" backgroundColor='#101010' />
             <ThemeProvider theme={theme}>
                 <View style={theme.mainContainer}>
                     <Text style={theme.headerText}>Create{"\n"}Account</Text>

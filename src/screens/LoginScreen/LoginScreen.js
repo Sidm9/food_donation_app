@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity , StatusBar } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -47,8 +47,9 @@ const LoginScreen = ({ navigation }) => {
     }
     return (
         <View style={theme.appearanceContainer}>
+                 <StatusBar barStyle="light-content" backgroundColor='#101010' />
             <ThemeProvider theme={theme}>
-                <View style={theme.mainContainer}>
+                <View style={[theme.mainContainer, theme.mainContainer.center]}>
 
                     <Text style={theme.headerText}>Welcome{"\n"}Back</Text>
 

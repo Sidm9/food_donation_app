@@ -63,7 +63,7 @@ const DonorScreen = ({ navigation }) => {
 
             <ThemeProvider theme={theme}>
 
-                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: '7%' }}>
+                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: '7%' }}>
                     <View>
                         <Button raised onPress={showDatepicker} title="Change Date"  />
                     </View>
