@@ -60,10 +60,12 @@ const DonorScreen = ({ navigation }) => {
 
 
         return (
-            <View style={{ flex: 1, width: '100%' }}>
-                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin: '2%', marginBottom: '7%' }}>
+
+            <ThemeProvider theme={theme}>
+
+                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: '7%' }}>
                     <View>
-                        <Button raised onPress={showDatepicker} title="Change Date" />
+                        <Button raised onPress={showDatepicker} title="Change Date"  />
                     </View>
                     <View>
                         <Button raised onPress={showTimepicker} title="Change Time" />
@@ -82,6 +84,7 @@ const DonorScreen = ({ navigation }) => {
                 )}
 
                 <Input
+
                     placeholder={date.toDateString()}
                     editable={false}
                     label="Date of Pickup"
@@ -96,56 +99,41 @@ const DonorScreen = ({ navigation }) => {
                     onChangeText={(val) => { emailHandler(val) }}
                 />
 
+                <Button title="Next" onPress={() => { navigation.push('Login') }} />
 
-            </View>
+            </ThemeProvider>
+
         );
     };
 
-    // const theme = {
-    //     Text: {
-    //         style: {
-    //             color: "green"
-    //         }
-    //     }
-    // };
 
     return (
-        <>
-            <View style={{ flex: 1, alignItems: "center", flexDirection: "column" }}>
+        <ScrollView style={theme.appearanceContainer}>
 
-                <Text h2 style={{ textAlign: "left", marginBottom: 20 }}> Donate Food Details </Text>
+            <ThemeProvider theme={theme}>
+                <View style={theme.mainContainer}>
 
+                    <Text style={theme.headerText}>Donate Food Details </Text>
 
-                <Input
-                    placeholder='221 Baker Street...'
-                    label="Pickup Where?"
-                    onChangeText={(val) => { emailHandler(val) }}
-                />
+                    <Input
+                        placeholder='221 Baker Street...'
+                        label="Pickup Where?"
+                        labelStyle = {{fontFamily : 'ProductSans'}}
+                        onChangeText={(val) => { emailHandler(val) }}
+                    />
 
-                <Input
-                    placeholder='Rice , Lentils , Daal'
-                    label="Food Item(s)"
-                    onChangeText={(val) => { emailHandler(val) }}
-                />
+                    <Input
+                        placeholder='Rice , Lentils , Daal'
+                        label="Food Item(s)"
+                        onChangeText={(val) => { emailHandler(val) }}
+                    />
 
-
-                <View style={{ flex: 0.6, width: '100%', borderWidth: 1, height: 200 }}>
-                    <TimePicker />
-
+                    <View>
+                        <TimePicker />
+                    </View>
                 </View>
-
-                {/* <Button containerStyle={{ width: '50%' }}  title="Nsssext" onPress={() => { navigation.push('ImageScreen') }} />
-                     */}
-
-                <ThemeProvider theme={theme}>
-                    {/* <Text>wef</Text> */}
-                    <Button  title="Next" onPress={() => { navigation.push('ImageScreen') }} />
-                </ThemeProvider>
-
-            </View>
-
-
-        </>
+            </ThemeProvider>
+        </ScrollView>
     );
 
 }

@@ -41,21 +41,31 @@ const Theme = {
             backgroundColor: '#1d9b54',
         },
         containerStyle: {
-            marginTop: '3%',
-            marginBottom: '3%',
+            margin: '3%',
         },
         titleStyle: {
             fontSize: 18,
             color: "#F8F8FF",
-            fontFamily : 'ProductSans'
+            fontFamily: 'ProductSans'
         },
     },
     Input: {
+
+        containerStyle: {
+            width: '100%',
+            marginLeft: 0,
+            marginRight: 0,
+        },
         inputStyle: {
-            color: '#F8F8FF'
+            color: '#F8F8FF',
+            fontFamily: 'ProductSans',
         },
         leftIcon: {
             color: '#F8F8FF',
+        },
+        labelStyle: {
+            fontFamily: 'ProductSans',
+            fontWeight: 'normal',
         }
     }
 

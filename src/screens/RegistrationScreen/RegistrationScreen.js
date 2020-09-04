@@ -80,7 +80,7 @@ const RegisterationScreen = ({ navigation }) => {
                     <Input
                         onChangeText={(val) => { emailHandler(val) }}
                         placeholder=' Email Address'
-                        leftIcon={{ type: 'material-icons', name: 'email' }}
+                        leftIcon={{ type: 'font-awesome', name: 'envelope' }}
                         errorMessage={emailError}
 
                     />

@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
 
                     <Input
 
-                        placeholder=' Login'
+                        placeholder=' Email Address'
                         onChangeText={(val) => { emailHandler(val) }}
                         leftIcon={{ type: 'font-awesome', name: 'envelope' }}
                         errorMessage={emailError}
