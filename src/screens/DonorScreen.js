@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from './GlobalStyles';
 import ImagePicker from './ImagePicker';
 import * as Location from 'expo-location';
+import firebase from '../firestore.js';
 
 const DonorScreen = ({ navigation }) => {
 
@@ -19,6 +20,9 @@ const DonorScreen = ({ navigation }) => {
     const [Image, setImage] = useState('');
 
     const [Disabled, setDisabled] = useState(true);
+
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     // DATE AND TIME PICKER
     const TimePicker = () => {
@@ -98,8 +102,7 @@ const DonorScreen = ({ navigation }) => {
 
     // LOCATION DETAILS
     const LocationProvider = () => {
-        const [location, setLocation] = useState(null);
-        const [errorMsg, setErrorMsg] = useState(null);
+       
 
 
         useEffect(() => {
@@ -141,13 +144,28 @@ const DonorScreen = ({ navigation }) => {
     }
 
     const handleFoodItems = (value) => {
-        setFoodItems(value);
+        setFoodItems(value.split(","));
         // console.log(emailAddress);
     }
 
 
     const handleSubmit = () => {
         console.log("lol")
+        let db = firebase.firestore();
+        db.collection("Donor").doc('Card').set({
+            PickupWhere: PickupWhere,
+            FoodItems: FoodItems,
+            DateOfPickup: date.toDateString(),
+            TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
+            Location: location
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+
     }
 
 
@@ -161,7 +179,6 @@ const DonorScreen = ({ navigation }) => {
         else {
             setDisabled(true)
         }
-        console.log("button is ", Disabled)
 
     }, [PickupWhere, FoodItems, Image, location])
 
@@ -191,7 +208,7 @@ const DonorScreen = ({ navigation }) => {
                             <ImagePicker callback={handleImage} />
                             <LocationProvider />
                         </View>
-                        <Button title="Go!" disabled={Disabled} onPress={handleSubmit} />
+                        <Button title="Go!" disabled={false} onPress={handleSubmit} />
                     </ScrollView>
                 </View>
             </ThemeProvider>

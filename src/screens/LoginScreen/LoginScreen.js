@@ -5,6 +5,7 @@ import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar } from 'react-native';
 
 
+
 const LoginScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -26,6 +27,7 @@ const LoginScreen = ({ navigation }) => {
     const handleSubmit = () => {
         firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
             console.log("You are in !!");
+
             navigation.navigate('Home');
         })
             .catch(function (error) {
