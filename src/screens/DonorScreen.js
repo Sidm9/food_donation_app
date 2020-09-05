@@ -8,18 +8,17 @@ import * as Location from 'expo-location';
 
 const DonorScreen = ({ navigation }) => {
 
-    const [emailAddress, setemailAddress] = useState('');
 
-    const emailHandler = (value) => {
-        setemailAddress(value);
-        console.log(emailAddress);
-    }
+    const [PickupWhere, setPickupWhere] = useState('');
+    const [FoodItems, setFoodItems] = useState('');
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
     const [Image, setImage] = useState('');
+
+    const [Disabled, setDisabled] = useState(true);
 
     // DATE AND TIME PICKER
     const TimePicker = () => {
@@ -62,7 +61,7 @@ const DonorScreen = ({ navigation }) => {
                         testID="dateTimePicker"
                         value={date}
                         mode={mode}
-                        is24Hour={true}
+                        is24Hour={false}
                         display="default"
                         minimumDate={new Date()}
                         onChange={onChange}
@@ -74,7 +73,7 @@ const DonorScreen = ({ navigation }) => {
                     placeholder={date.toDateString()}
                     editable={false}
                     label=" Date of Pickup"
-                    onChangeText={(val) => { emailHandler(val) }}
+                    onChangeText={(val) => { handlePickupWhere(val) }}
                 />
 
                 <Input
@@ -83,7 +82,7 @@ const DonorScreen = ({ navigation }) => {
                     editable={false}
                     style={{ color: 'black' }}
                     label=" Time of Pickup"
-                    onChangeText={(val) => { emailHandler(val) }}
+                // onChangeText={(val) => { handleFoodItems(val) }}
                 />
                 {/* 
                 <Button title="Next" onPress={() => { navigation.push('Login') }} /> */}
@@ -122,13 +121,7 @@ const DonorScreen = ({ navigation }) => {
             text = "Location Set ✔";
         }
 
-
         return (
-            // <ThemeProvider theme={theme}>
-            //     <View>
-            //         <Text>{text}</Text>
-            //     </View>
-            // </ThemeProvider>
             <View style={theme.mainContainer.center}>
                 <Text style={theme.centerText}>{text}</Text>
             </View>
@@ -136,12 +129,20 @@ const DonorScreen = ({ navigation }) => {
     }
 
 
-
-
-
+    // DONOR MAIN SCREEN
 
     const handleImage = (dataFromChild) => {
         setImage(dataFromChild);
+    }
+
+    const handlePickupWhere = (value) => {
+        setPickupWhere(value);
+        // console.log(emailAddress);
+    }
+
+    const handleFoodItems = (value) => {
+        setFoodItems(value);
+        // console.log(emailAddress);
     }
 
 
@@ -149,7 +150,21 @@ const DonorScreen = ({ navigation }) => {
         console.log("lol")
     }
 
-    // DONOR MAIN SCREEN
+
+    useEffect(() => {
+
+        if (PickupWhere && FoodItems && Image && location !== '' || null) {
+
+            setDisabled(false)
+
+        }
+        else {
+            setDisabled(true)
+        }
+        console.log("button is ", Disabled)
+
+    }, [PickupWhere, FoodItems, Image, location])
+
     return (
         <View style={theme.appearanceContainer}>
 
@@ -162,13 +177,13 @@ const DonorScreen = ({ navigation }) => {
                             placeholder='221 Baker Street..'
                             label=" Pickup Where?"
                             labelStyle={{ fontFamily: 'ProductSans' }}
-                            onChangeText={(val) => { emailHandler(val) }}
+                            onChangeText={(val) => { handlePickupWhere(val) }}
                         />
 
                         <Input
                             placeholder='Rice , Lentils , Daal'
                             label=" Food Item(s)"
-                            onChangeText={(val) => { emailHandler(val) }}
+                            onChangeText={(val) => { handleFoodItems(val) }}
                         />
 
                         <View>
@@ -176,7 +191,7 @@ const DonorScreen = ({ navigation }) => {
                             <ImagePicker callback={handleImage} />
                             <LocationProvider />
                         </View>
-                        <Button title="Go!" onPress={handleSubmit} />
+                        <Button title="Go!" disabled={Disabled} onPress={handleSubmit} />
                     </ScrollView>
                 </View>
             </ThemeProvider>
