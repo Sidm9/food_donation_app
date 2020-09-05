@@ -1,29 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Image, ScrollView } from 'react-native';
 import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from './GlobalStyles';
 import ImagePicker from './ImagePicker';
+import * as Location from 'expo-location';
 
 const DonorScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
 
-    // const [dateData, setDateData] = useState('');
-    // const [timeData, setTimeData] = useState('');
-
-
-
     const emailHandler = (value) => {
         setemailAddress(value);
         console.log(emailAddress);
     }
-
-
-    // const handleTime = (dataFromChild) => {
-
-    //     setTimeData(dataFromChild);
-    // }
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
@@ -31,7 +21,8 @@ const DonorScreen = ({ navigation }) => {
 
     const [Image, setImage] = useState('');
 
-    const TimePicker = (props) => {
+    // DATE AND TIME PICKER
+    const TimePicker = () => {
 
 
         const onChange = (event, selectedDate) => {
@@ -103,38 +94,93 @@ const DonorScreen = ({ navigation }) => {
     };
 
 
+
+
+
+    // LOCATION DETAILS
+    const LocationProvider = () => {
+        const [location, setLocation] = useState(null);
+        const [errorMsg, setErrorMsg] = useState(null);
+
+
+        useEffect(() => {
+            (async () => {
+                let { status } = await Location.requestPermissionsAsync();
+                if (status !== 'granted') {
+                    setErrorMsg('Permission to access location was denied');
+                }
+
+                let location = await Location.getCurrentPositionAsync({});
+                setLocation(location);
+            })();
+        });
+
+        let text = 'Waiting..';
+        if (errorMsg) {
+            text = errorMsg;
+        } else if (location) {
+            text = "Location Set ✔";
+        }
+
+
+        return (
+            // <ThemeProvider theme={theme}>
+            //     <View>
+            //         <Text>{text}</Text>
+            //     </View>
+            // </ThemeProvider>
+            <View style={theme.mainContainer.center}>
+                <Text style={theme.centerText}>{text}</Text>
+            </View>
+        );
+    }
+
+
+
+
+
+
     const handleImage = (dataFromChild) => {
         setImage(dataFromChild);
     }
+
+
+    const handleSubmit = () => {
+        console.log("lol")
+    }
+
+    // DONOR MAIN SCREEN
     return (
-        <ScrollView style={theme.appearanceContainer}>
+        <View style={theme.appearanceContainer}>
 
             <ThemeProvider theme={theme}>
                 <View style={theme.mainContainer}>
 
                     <Text style={theme.headerText}>Donate Food Details </Text>
+                    <ScrollView>
+                        <Input
+                            placeholder='221 Baker Street..'
+                            label=" Pickup Where?"
+                            labelStyle={{ fontFamily: 'ProductSans' }}
+                            onChangeText={(val) => { emailHandler(val) }}
+                        />
 
-                    <Input
-                        placeholder='221 Baker Street..'
-                        label=" Pickup Where?"
-                        labelStyle={{ fontFamily: 'ProductSans' }}
-                        onChangeText={(val) => { emailHandler(val) }}
-                    />
+                        <Input
+                            placeholder='Rice , Lentils , Daal'
+                            label=" Food Item(s)"
+                            onChangeText={(val) => { emailHandler(val) }}
+                        />
 
-                    <Input
-                        placeholder='Rice , Lentils , Daal'
-                        label=" Food Item(s)"
-                        onChangeText={(val) => { emailHandler(val) }}
-                    />
-
-                    <View>
-                        <TimePicker />
-                        <ImagePicker callback={handleImage} />
-                    </View>
-
+                        <View>
+                            <TimePicker />
+                            <ImagePicker callback={handleImage} />
+                            <LocationProvider />
+                        </View>
+                        <Button title="Go!" onPress={handleSubmit} />
+                    </ScrollView>
                 </View>
             </ThemeProvider>
-        </ScrollView>
+        </View>
     );
 
 }

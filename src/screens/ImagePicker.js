@@ -62,7 +62,7 @@ export default class ImagePickerExample extends React.Component {
     return (
       <ScrollView>
         <ThemeProvider theme={theme}>
-          <View style={[theme.mainContainer.center, theme.mainContainer]}>
+          <View style={[theme.mainContainer.center]}>
             <Button title="Pick an image from camera roll" onPress={this._pickImage} />
             {/* {image && <Image source={{ uri: image }} style={{ width: '100%', height: 200, marginTop: '6%' }} />} */}
             {
