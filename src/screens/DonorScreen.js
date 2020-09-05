@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from './GlobalStyles';
+import ImagePicker from './ImagePicker';
 
 const DonorScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
 
-    const [dateData, setDateData] = useState('');
-    const [timeData, setTimeData] = useState('');
+    // const [dateData, setDateData] = useState('');
+    // const [timeData, setTimeData] = useState('');
+
+    const [image, setImage] = useState('');
 
 
     const emailHandler = (value) => {
@@ -18,22 +21,18 @@ const DonorScreen = ({ navigation }) => {
     }
 
 
-    const handleTime = (dataFromChild) => {
+    // const handleTime = (dataFromChild) => {
 
-        setTimeData(dataFromChild);
-    }
+    //     setTimeData(dataFromChild);
+    // }
 
-
-    // For the time picker
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
 
     const TimePicker = (props) => {
-        // const [date, setDate] = useState(new Date());
-        // const [mode, setMode] = useState('date');
-        // const [show, setShow] = useState(false);
+
 
         const onChange = (event, selectedDate) => {
             const currentDate = selectedDate || date;
@@ -55,17 +54,13 @@ const DonorScreen = ({ navigation }) => {
             showMode('time');
         };
 
-
-
-
-
         return (
 
             <ThemeProvider theme={theme}>
 
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: '7%' }}>
                     <View>
-                        <Button raised onPress={showDatepicker} title="Change Date"  />
+                        <Button raised onPress={showDatepicker} title="Change Date" />
                     </View>
                     <View>
                         <Button raised onPress={showTimepicker} title="Change Time" />
@@ -87,19 +82,20 @@ const DonorScreen = ({ navigation }) => {
 
                     placeholder={date.toDateString()}
                     editable={false}
-                    label="Date of Pickup"
+                    label=" Date of Pickup"
                     onChangeText={(val) => { emailHandler(val) }}
                 />
 
                 <Input
-                    placeholder={date.toLocaleTimeString()}
+                    // This regex is not working..
+                    placeholder={date.toLocaleTimeString().replace(/:\d+ /, ' ')}
                     editable={false}
                     style={{ color: 'black' }}
-                    label="Time of Pickup"
+                    label=" Time of Pickup"
                     onChangeText={(val) => { emailHandler(val) }}
                 />
-
-                <Button title="Next" onPress={() => { navigation.push('Login') }} />
+{/* 
+                <Button title="Next" onPress={() => { navigation.push('Login') }} /> */}
 
             </ThemeProvider>
 
@@ -116,21 +112,27 @@ const DonorScreen = ({ navigation }) => {
                     <Text style={theme.headerText}>Donate Food Details </Text>
 
                     <Input
-                        placeholder='221 Baker Street...'
-                        label="Pickup Where?"
-                        labelStyle = {{fontFamily : 'ProductSans'}}
+                        placeholder='221 Baker Street..'
+                        label=" Pickup Where?"
+                        labelStyle={{ fontFamily: 'ProductSans' }}
                         onChangeText={(val) => { emailHandler(val) }}
                     />
 
                     <Input
                         placeholder='Rice , Lentils , Daal'
-                        label="Food Item(s)"
+                        label=" Food Item(s)"
                         onChangeText={(val) => { emailHandler(val) }}
                     />
 
                     <View>
                         <TimePicker />
+                        <ImagePicker/>
                     </View>
+
+
+
+
+
                 </View>
             </ThemeProvider>
         </ScrollView>

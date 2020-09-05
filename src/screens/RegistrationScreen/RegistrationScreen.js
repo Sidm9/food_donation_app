@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity , StatusBar} from 'react-native';
+import { View, TouchableOpacity, StatusBar } from 'react-native';
 
 const RegisterationScreen = ({ navigation }) => {
 
@@ -34,21 +34,13 @@ const RegisterationScreen = ({ navigation }) => {
         setConPassword('')
     }
     const handleSubmit = () => {
-        // const db = firebase.firestore();
-        // const userRef = db.collection("users").add({
-        //     Email: {emailAddress},
-        //     password : {password},
-        // })
-        // .then(function() {
-        //     console.log("Document successfully written!");
-        // })
-        // .catch(function(error) {
-        //     console.error("Error writing document: ", error);
-        // });
+
         if (password.trim() === conPassword.trim()) {
 
             firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then(() => {
                 console.log("OKKKK");
+                navigation.navigate('Login');
+                clearAll();
             })
                 .catch(function (error) {
                     // Handle Errors here.
@@ -63,7 +55,6 @@ const RegisterationScreen = ({ navigation }) => {
                     if (errorCode === "auth/weak-password") {
                         setPasswordError(errorMessage);
                     }
-                    // ...
                 })
         }
         else {
@@ -74,14 +65,13 @@ const RegisterationScreen = ({ navigation }) => {
     return (
         <View style={theme.appearanceContainer}>
             <ThemeProvider theme={theme}>
-                <View style={theme.mainContainer}>
+                <View style={[theme.mainContainer, theme.mainContainer.center]}>
                     <Text style={theme.headerText}>Create{"\n"}Account</Text>
                     <Input
                         onChangeText={(val) => { emailHandler(val) }}
                         placeholder=' Email Address'
                         leftIcon={{ type: 'font-awesome', name: 'envelope' }}
                         errorMessage={emailError}
-
                     />
 
                     <Input

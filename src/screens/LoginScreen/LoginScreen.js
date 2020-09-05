@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity , StatusBar } from 'react-native';
+import { View, TouchableOpacity, StatusBar } from 'react-native';
+
 
 const LoginScreen = ({ navigation }) => {
 

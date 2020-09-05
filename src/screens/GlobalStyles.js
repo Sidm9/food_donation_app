@@ -52,7 +52,6 @@ const Theme = {
         },
     },
     Input: {
-
         containerStyle: {
             width: '100%',
             marginLeft: 0,
@@ -68,7 +67,7 @@ const Theme = {
         labelStyle: {
             fontFamily: 'ProductSans',
             fontWeight: 'normal',
-        }
+        },
     }
 
 }

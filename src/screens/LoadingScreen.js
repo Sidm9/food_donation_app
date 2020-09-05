@@ -18,7 +18,7 @@ const LoadingScreen = ({ navigation }) => {
         console.log(loaded)
         if (loaded == true) {
             console.log("eoiurghiwerghierughieruhierughierguhiuer")
-            navigation.navigate("Login");
+            navigation.navigate("Donor");
         }
     }
 
