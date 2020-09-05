@@ -26,6 +26,7 @@ const Theme = {
     centerText: {
         color: "#F8F8FF",
         width: '100%',
+        marginTop: '3%',
         textAlign: 'center',
     },
     Text: {
@@ -68,6 +69,13 @@ const Theme = {
             fontFamily: 'ProductSans',
             fontWeight: 'normal',
         },
+    },
+    Icon: {
+        containerStyle: {
+            marginTop: '5%',
+        },
+        size: 45,
+        color: '#1d9b54'
     }
 
 }

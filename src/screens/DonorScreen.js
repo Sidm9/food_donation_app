@@ -12,7 +12,6 @@ const DonorScreen = ({ navigation }) => {
     // const [dateData, setDateData] = useState('');
     // const [timeData, setTimeData] = useState('');
 
-    const [image, setImage] = useState('');
 
 
     const emailHandler = (value) => {
@@ -30,6 +29,7 @@ const DonorScreen = ({ navigation }) => {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
+    const [Image, setImage] = useState('');
 
     const TimePicker = (props) => {
 
@@ -94,7 +94,7 @@ const DonorScreen = ({ navigation }) => {
                     label=" Time of Pickup"
                     onChangeText={(val) => { emailHandler(val) }}
                 />
-{/* 
+                {/* 
                 <Button title="Next" onPress={() => { navigation.push('Login') }} /> */}
 
             </ThemeProvider>
@@ -103,6 +103,9 @@ const DonorScreen = ({ navigation }) => {
     };
 
 
+    const handleImage = (dataFromChild) => {
+        setImage(dataFromChild);
+    }
     return (
         <ScrollView style={theme.appearanceContainer}>
 
@@ -126,12 +129,8 @@ const DonorScreen = ({ navigation }) => {
 
                     <View>
                         <TimePicker />
-                        <ImagePicker/>
+                        <ImagePicker callback={handleImage} />
                     </View>
-
-
-
-
 
                 </View>
             </ThemeProvider>

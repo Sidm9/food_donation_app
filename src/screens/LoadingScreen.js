@@ -3,7 +3,6 @@ import * as Font from 'expo-font';
 import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
 import { ActivityIndicator, View, ThemeProvider } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 
 
 const LoadingScreen = ({ navigation }) => {
@@ -23,9 +22,7 @@ const LoadingScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
-
         runn();
-
     }, [loaded, setloaded]);
 
     return (
