@@ -3,7 +3,7 @@ import { Image, View, Platform, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import theme from './GlobalStyles';
-import { ThemeProvider, Button, Icon, Text } from 'react-native-elements';
+import { ThemeProvider, Button, Icon } from 'react-native-elements';
 
 export default class ImagePickerExample extends React.Component {
   state = {
@@ -23,8 +23,8 @@ export default class ImagePickerExample extends React.Component {
                 <Icon
                   name='picture-o'
                   type='font-awesome'
-                /> :
-                <Image
+              /> :
+              < Image
                   source={{ uri: image }}
                   style={{ width: '100%', height: 200, marginTop: '6%', marginTop: 30 }} />
             }

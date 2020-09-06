@@ -4,8 +4,8 @@ const Theme = {
         backgroundColor: '#101010',
     },
     mainContainer: {
-        marginLeft: '5%',
-        marginRight: '5%',
+        marginLeft: '2%',
+        marginRight: '2%',
         flex: 1,
         center: {
             justifyContent: 'center',
@@ -15,8 +15,8 @@ const Theme = {
         color: "#F8F8FF",
         fontSize: 40,
         fontFamily: 'ProductSansBold',
-        marginTop: '10%',
-        marginBottom: '10%',
+        marginTop: '5%',
+        marginBottom: '5%',
         marginRight: '3%',
         marginLeft: '3%',
         center: {
@@ -45,6 +45,7 @@ const Theme = {
         },
         containerStyle: {
             margin: '3%',
+            borderRadius: 10,
         },
         titleStyle: {
             fontSize: 18,
@@ -74,9 +75,25 @@ const Theme = {
         containerStyle: {
             marginTop: '5%',
         },
-        size: 45,
         color: '#1d9b54'
+    },
+    Card: {
+        containerStyle: {
+            backgroundColor: "#1f1f1f",
+            borderRadius: 8,
+            borderColor: '#333333',
+            padding: 0,
+        },
+    },
+    cardData: {
+        fontFamily : 'ProductSansBold',
+        marginLeft: '2%',
+        marginRight: '2%',
+        marginTop: '5%',
+        marginBottom: '2%',
+        fontSize : 25,
     }
+
 
 }
 export default Theme

@@ -6,6 +6,7 @@ import theme from './GlobalStyles';
 import ImagePicker from './ImagePicker';
 import * as Location from 'expo-location';
 import firebase from '../firestore.js';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DonorScreen = ({ navigation }) => {
 
@@ -95,15 +96,8 @@ const DonorScreen = ({ navigation }) => {
 
         );
     };
-
-
-
-
-
     // LOCATION DETAILS
     const LocationProvider = () => {
-       
-
 
         useEffect(() => {
             (async () => {
@@ -117,7 +111,7 @@ const DonorScreen = ({ navigation }) => {
             })();
         });
 
-        let text = 'Waiting..';
+        let text = ' Waiting..';
         if (errorMsg) {
             text = errorMsg;
         } else if (location) {
@@ -145,26 +139,83 @@ const DonorScreen = ({ navigation }) => {
 
     const handleFoodItems = (value) => {
         setFoodItems(value.split(","));
-        // console.log(emailAddress);
     }
 
+    const getLocalStorageItem = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@storage_Key')
+            console.log("LocalStorageUser", value)
+            return value
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
-    const handleSubmit = () => {
-        console.log("lol")
-        let db = firebase.firestore();
-        db.collection("Donor").doc('Card').set({
-            PickupWhere: PickupWhere,
-            FoodItems: FoodItems,
-            DateOfPickup: date.toDateString(),
-            TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
-            Location: location
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
+    const handleSubmit = async () => {
+        console.log("ls")
+        // let db = firebase.firestore();
+        // FOR THE IMAGE DATA
+
+
+
+        const response = (Image);
+        const blob = await response.blob();
+        var ref = firebase.storage().ref().child("my-image")
+        return ref.put(blob);
+
+
+
+        // const { uri } = Image;
+        // const filename = "Food";
+        // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        // firebase.storage()
+        //     .ref(filename)
+        //     .putFile(uploadUri);
+
+        // console.log("is this " + file);
+        // try {
+        //     var storageRef = firebase.storage().put(uploadUri);
+        //     console.log("🎫")
+        //     storageRef.put(uploadUri)
+        // }
+        // catch (e) {
+        //     console.log("Shit", e)
+        // }
+
+        // const ref = firebase.storage().ref();
+        // const file = Image
+        // const name = (+new Date()) + '-' + file.name;
+        // const metadata = {
+        //     contentType: file.type
+        // };
+        // const task = ref.child(name).put(file, metadata);
+
+        // task
+        //     .then(snapshot => snapshot.ref.getDownloadURL())
+        //     .then((url) => {
+        //         console.log(url);
+        //     })
+        //     .catch(console.error);
+
+        // //FOR THE INPUTED DATA
+        // var user = getLocalStorageItem();
+        // console.log("lol")
+
+        // db.collection("Donor").doc('Card').set({
+        //     User: user,
+        //     PickupWhere: PickupWhere,
+        //     FoodItems: FoodItems,
+        //     DateOfPickup: date.toDateString(),
+        //     TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
+        //     Location: location
+        // })
+        //     .then(function () {
+        //         console.log("Document successfully written!");
+        //     })
+        //     .catch(function (error) {
+        //         console.error("Error writing document: ", error);
+        //     });
 
     }
 

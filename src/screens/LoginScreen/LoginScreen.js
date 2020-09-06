@@ -3,7 +3,7 @@ import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const LoginScreen = ({ navigation }) => {
@@ -23,11 +23,18 @@ const LoginScreen = ({ navigation }) => {
         console.log(password);
     }
 
+    const addToLocalStorage = async (value) => {
+        try {
+            await AsyncStorage.setItem('@storage_Key', value)
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleSubmit = () => {
         firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
             console.log("You are in !!");
-
+            addToLocalStorage(emailAddress);
             navigation.navigate('Home');
         })
             .catch(function (error) {
@@ -50,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
     }
     return (
         <View style={theme.appearanceContainer}>
-                 <StatusBar barStyle="light-content" backgroundColor='#101010' />
+            <StatusBar barStyle="light-content" backgroundColor='#101010' />
             <ThemeProvider theme={theme}>
                 <View style={[theme.mainContainer, theme.mainContainer.center]}>
 

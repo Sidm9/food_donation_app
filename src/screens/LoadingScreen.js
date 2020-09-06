@@ -16,8 +16,7 @@ const LoadingScreen = ({ navigation }) => {
         setloaded(true)
         console.log(loaded)
         if (loaded == true) {
-            console.log("eoiurghiwerghierughieruhierughierguhiuer")
-            navigation.navigate("Donor");
+            navigation.navigate("Volunteer");
         }
     }
 
