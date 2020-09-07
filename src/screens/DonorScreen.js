@@ -25,6 +25,8 @@ const DonorScreen = ({ navigation }) => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
+
+
     // DATE AND TIME PICKER
     const TimePicker = () => {
 
@@ -153,25 +155,20 @@ const DonorScreen = ({ navigation }) => {
     }
 
     const handleSubmit = async () => {
+
+
         console.log("ls")
         // let db = firebase.firestore();
         // FOR THE IMAGE DATA
 
+        console.log("BLOBLOBLOEBLB")
 
-
-        const response = (Image);
-        const blob = await response.blob();
-        var ref = firebase.storage().ref().child("my-image")
-        return ref.put(blob);
-
-
-
-        // const { uri } = Image;
-        // const filename = "Food";
-        // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        // firebase.storage()
-        //     .ref(filename)
-        //     .putFile(uploadUri);
+        const blob = new Blob([Image], { type: 'image/png' })
+        const filename = "Khana";
+        const uploadUri = Platform.OS === 'ios' ? blob.replace('file://', '') : blob;
+        firebase.storage()
+            .ref(filename).child("Image is this")
+            .put(blob);
 
         // console.log("is this " + file);
         // try {
@@ -209,7 +206,7 @@ const DonorScreen = ({ navigation }) => {
         //     DateOfPickup: date.toDateString(),
         //     TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
         //     Location: location
-        // })
+        // })n
         //     .then(function () {
         //         console.log("Document successfully written!");
         //     })
@@ -222,6 +219,9 @@ const DonorScreen = ({ navigation }) => {
 
     useEffect(() => {
 
+        //WARNING REMOVAL 
+        let isMounted = true; // note this flag denote mount status
+
         if (PickupWhere && FoodItems && Image && location !== '' || null) {
 
             setDisabled(false)
@@ -230,7 +230,7 @@ const DonorScreen = ({ navigation }) => {
         else {
             setDisabled(true)
         }
-
+        return () => { isMounted = false };
     }, [PickupWhere, FoodItems, Image, location])
 
     return (

@@ -19,9 +19,9 @@ const Theme = {
         marginBottom: '5%',
         marginRight: '3%',
         marginLeft: '3%',
-        center: {
-            textAlign: 'center',
-        }
+    },
+    center: {
+        textAlign: 'center',
     },
     centerText: {
         color: "#F8F8FF",

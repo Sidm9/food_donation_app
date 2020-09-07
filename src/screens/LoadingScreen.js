@@ -16,7 +16,7 @@ const LoadingScreen = ({ navigation }) => {
         setloaded(true)
         console.log(loaded)
         if (loaded == true) {
-            navigation.navigate("Volunteer");
+            navigation.navigate("Login");
         }
     }
 
