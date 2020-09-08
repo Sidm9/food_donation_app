@@ -142,17 +142,6 @@ const DonorScreen = ({ navigation }) => {
         setFoodItems(value.split(","));
     }
 
-    const getLocalStorageItem = async () => {
-        try {
-            const value = await AsyncStorage.getItem('@storage_Key')
-            console.log("LocalStorageUser", value)
-            return value
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
     const handleSubmit = async () => {
 
 

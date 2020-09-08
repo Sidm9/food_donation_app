@@ -4,8 +4,6 @@ import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-
-
 const LoginScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -25,13 +23,14 @@ const LoginScreen = ({ navigation }) => {
 
     const addToLocalStorage = async (value) => {
         try {
-            await AsyncStorage.setItem('@storage_Key', value)
+            await AsyncStorage.setItem('key', value)
         } catch (e) {
             console.log(e);
         }
     }
 
     const handleSubmit = () => {
+        console.log('Button Pressed!!')
         firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
             console.log("You are in !!");
             addToLocalStorage(emailAddress);
