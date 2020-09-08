@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Image, ScrollView } from 'react-native';
+import { View, ScrollView , Alert } from 'react-native';
 import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from './GlobalStyles';
@@ -7,12 +7,14 @@ import ImagePicker from './ImagePicker';
 import * as Location from 'expo-location';
 import firebase from '../firestore.js';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Setting a timer']);
 const DonorScreen = ({ navigation }) => {
 
 
     const [PickupWhere, setPickupWhere] = useState('');
     const [FoodItems, setFoodItems] = useState('');
+    const [ImageURL, seteImageURL] = useState('');
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
@@ -45,10 +47,12 @@ const DonorScreen = ({ navigation }) => {
 
         const showDatepicker = () => {
             showMode('date');
+            console.log("Change Date Pressed!")
         };
 
         const showTimepicker = () => {
             showMode('time');
+            console.log("Change Time Pressed!")
         };
 
         return (
@@ -57,10 +61,10 @@ const DonorScreen = ({ navigation }) => {
 
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: '7%' }}>
                     <View>
-                        <Button raised onPress={showDatepicker} title="Change Date" />
+                        <Button onPress={showDatepicker} title="Change Date" />
                     </View>
                     <View>
-                        <Button raised onPress={showTimepicker} title="Change Time" />
+                        <Button onPress={showTimepicker} title="Change Time" />
                     </View>
                 </View>
                 {show && (
@@ -84,15 +88,10 @@ const DonorScreen = ({ navigation }) => {
                 />
 
                 <Input
-                    // This regex is not working..
                     placeholder={date.toLocaleTimeString().replace(/:\d+ /, ' ')}
                     editable={false}
                     style={{ color: 'black' }}
-                    label=" Time of Pickup"
-                // onChangeText={(val) => { handleFoodItems(val) }}
-                />
-                {/* 
-                <Button title="Next" onPress={() => { navigation.push('Login') }} /> */}
+                    label=" Time of Pickup"/>
 
             </ThemeProvider>
 
@@ -158,61 +157,67 @@ const DonorScreen = ({ navigation }) => {
 
 
         console.log("ls")
-        // let db = firebase.firestore();
+        let db = firebase.firestore();
         // FOR THE IMAGE DATA
 
         console.log("BLOBLOBLOEBLB")
 
-        const blob = new Blob([Image], { type: 'image/png' })
-        const filename = "Khana";
-        const uploadUri = Platform.OS === 'ios' ? blob.replace('file://', '') : blob;
-        firebase.storage()
-            .ref(filename).child("Image is this")
-            .put(blob);
+        const randomString = () => {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
 
-        // console.log("is this " + file);
-        // try {
-        //     var storageRef = firebase.storage().put(uploadUri);
-        //     console.log("🎫")
-        //     storageRef.put(uploadUri)
-        // }
-        // catch (e) {
-        //     console.log("Shit", e)
-        // }
 
-        // const ref = firebase.storage().ref();
-        // const file = Image
-        // const name = (+new Date()) + '-' + file.name;
-        // const metadata = {
-        //     contentType: file.type
-        // };
-        // const task = ref.child(name).put(file, metadata);
+        async function uploadImageAsync(uri) {
+            // Why are we using XMLHttpRequest? See:
+            // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+            const blob = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    resolve(xhr.response);
+                };
+                xhr.onerror = function (e) {
+                    console.log(e);
+                    reject(new TypeError('Network request failed'));
+                };
+                xhr.responseType = 'blob';
+                xhr.open('GET', uri, true);
+                xhr.send(null);
+            });
 
-        // task
-        //     .then(snapshot => snapshot.ref.getDownloadURL())
-        //     .then((url) => {
-        //         console.log(url);
-        //     })
-        //     .catch(console.error);
+            const ref = firebase
+                .storage()
+                .ref()
+                .child(randomString());
+            const snapshot = await ref.put(blob);
 
-        // //FOR THE INPUTED DATA
-        // var user = getLocalStorageItem();
-        // console.log("lol")
+            // We're done with the blob, close and release it
+            blob.close();
 
-        // db.collection("Donor").doc('Card').set({
-        //     User: user,
-        //     PickupWhere: PickupWhere,
-        //     FoodItems: FoodItems,
-        //     DateOfPickup: date.toDateString(),
-        //     TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
-        //     Location: location
-        // })n
-        //     .then(function () {
-        //         console.log("Document successfully written!");
-        //     })
-        //     .catch(function (error) {
-        //         console.error("Error writing document: ", error);
-        //     });
+            return await snapshot.ref.getDownloadURL().then((downloadURL) =>{
+                seteImageURL(downloadURL);
+                console.log("IMAGE UPLOADED");
+                Alert.alert("UPLOADED IMAGE");
+            })
+
+        }
+
+        uploadImageAsync(Image)
+
+        db.collection("Donor").doc('Card').set({
+            User: user,
+            PickupWhere: PickupWhere,
+            FoodItems: FoodItems,
+            DateOfPickup: date.toDateString(),
+            TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
+            Location: location,
+            ImageURL: ImageURL
+        })
+            .then(function () {
+                console.log("Document successfully written!");
+            })
+            .catch(function (error) {
+                console.error("Error writing document: ", error);
+            });
 
     }
 
@@ -259,7 +264,7 @@ const DonorScreen = ({ navigation }) => {
                             <ImagePicker callback={handleImage} />
                             <LocationProvider />
                         </View>
-                        <Button title="Go!" disabled={false} onPress={handleSubmit} />
+                        <Button title="Go!" disabled={Disabled} onPress={handleSubmit} />
                     </ScrollView>
                 </View>
             </ThemeProvider>

@@ -24,7 +24,7 @@ export default class ImagePickerExample extends React.Component {
                   name='picture-o'
                   type='font-awesome'
               /> :
-              < Image
+              <Image
                   source={{ uri: image }}
                   style={{ width: '100%', height: 200, marginTop: '6%', marginTop: 30 }} />
             }
