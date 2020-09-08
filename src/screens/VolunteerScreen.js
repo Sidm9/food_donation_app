@@ -14,17 +14,18 @@ export default class Volunteer extends React.Component {
             activeIndex: 0,
             carouselItems: [
                 {
-                    title: "Item 1",
-                    address: "221 Baker Street",
-                    Date: "22 August 2020",
+                    title:
+                        ["Abra", "cadabra", "hakoona", "matata"],
+                    address: "221 Baker Street London",
+                    date: "11 September 2020",
                     time: "2:30 PM",
-                    User: "Siddharth",
+                    user: "Siddharth",
                     text: "Text 1",
                 },
                 {
                     title: "Item 1",
                     address: "b2 602 eldeco",
-                    Date: "22 August 2020",
+                    date: "22 August 2020",
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
@@ -32,7 +33,7 @@ export default class Volunteer extends React.Component {
                 {
                     title: "Item 1",
                     address: "221 Baker Street",
-                    Date: "22 August 2020",
+                    date: "22 August 2020",
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
@@ -40,7 +41,7 @@ export default class Volunteer extends React.Component {
                 {
                     title: "Item 1",
                     address: "221 Baker Street",
-                    Date: "22 August 2020",
+                    date: "22 August 2020",
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
@@ -48,7 +49,7 @@ export default class Volunteer extends React.Component {
                 {
                     title: "Item 1",
                     address: "221 Baker Street",
-                    Date: "22 August 2020",
+                    date: "22 August 2020",
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
@@ -57,7 +58,17 @@ export default class Volunteer extends React.Component {
         }
     }
 
+
     _renderItem({ item, index }) {
+
+        function renderFoodItems() {
+            var list = carouselItems.title.map = ((i) => {
+                key = { i }
+                return (
+                    <Text>{i}</Text>
+                )
+            })
+        }
         return (
             //   <View style={{
             //       backgroundColor:'floralwhite',
@@ -70,29 +81,53 @@ export default class Volunteer extends React.Component {
             //     <Text>{item.text}</Text>
             //   </View>
 
- 
-            <ThemeProvider theme={theme}>
+
+
+            <ThemeProvider theme={theme} >
 
                 <ScrollView>
 
 
                     <Card>
                         <Card.Image
-                            source={require('../../assets/food.png')}
-                            transition = {true}
-                            style={{ width: '100%', height: 300, borderRadius: 14 }}
+                            source={require('../../assets/food2.png')}
+                            transition={true}
+                            style={{ width: '100%', height: 200, borderRadius: 14 }}
                         />
                         <View style={theme.cardData}>
-                            <Text style={{ fontFamily: 'ProductSansBold' }}>OKOKOK</Text>
-                            <Text>Address </Text>
-                            <Text>Date  </Text>
-                            <Text>Time </Text>
+
+                            <Text style={{ fontFamily: 'ProductSansBold' }}>Bruschetta</Text>
+
+
+                            <Text>{item.address} </Text>
+
+
+                            <Text style={{ color: theme.dullText }}>
+                                Date: &nbsp;
+                                    <Text>
+                                    {item.date}
+                                </Text>
+                            </Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                                <Text style={{ color: theme.dullText }}>
+
+                                    Time: &nbsp;
+                                    <Text>
+                                        {item.time}
+                                    </Text>
+
+
+
+                                </Text>
+                                <Text style={{ marginRight: '2%', color: theme.dullText }} >{item.user}</Text>
+                            </View>
 
                             <Button
                                 type="outline"
                                 buttonStyle={{
                                     backgroundColor: theme.backgroundColor,
                                     borderColor: theme.primaryColor,
+                                    borderWidth: 2,
                                 }}
                                 containerStyle={{
                                     marginRight: 0,
@@ -106,7 +141,7 @@ export default class Volunteer extends React.Component {
 
                 </ScrollView>
 
-            </ThemeProvider>
+            </ThemeProvider >
 
         )
     }
@@ -114,17 +149,34 @@ export default class Volunteer extends React.Component {
     render() {
         return (
             <View style={theme.appearanceContainer}>
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Carousel
-                        layout={"default"}
-                        layoutCardOffset={`90`}
-                        ref={ref => this.carousel = ref}
-                        data={this.state.carouselItems}
-                        sliderWidth={100}
-                        itemWidth={375}
-                        renderItem={this._renderItem}
-                        onSnapToItem={index => this.setState({ activeIndex: index })} />
-                </View>
+                <ScrollView>
+                    <Text style={[theme.headerText, { marginBottom: '2%' }]}> Vegetarian  </Text>
+                    <View style={{ flex: 2, flexDirection: 'row', }}>
+                        <Carousel
+                            layout={"default"}
+                            layoutCardOffset={`90`}
+                            ref={ref => this.carousel = ref}
+                            data={this.state.carouselItems}
+                            sliderWidth={50}
+                            itemWidth={375}
+                            renderItem={this._renderItem}
+                            onSnapToItem={index => this.setState({ activeIndex: index })} />
+
+                    </View>
+                    <Text style={[theme.headerText, { marginBottom: '2%' }]}> Non Vegetarian  </Text>
+                    <View style={{ flex: 1, flexDirection: 'row', }}>
+                        <Carousel
+                            layout={"default"}
+                            layoutCardOffset={90}
+                            ref={ref => this.carousel = ref}
+                            data={this.state.carouselItems}
+                            sliderWidth={50}
+                            itemWidth={385}
+                            renderItem={this._renderItem}
+                            onSnapToItem={index => this.setState({ activeIndex: index })} />
+
+                    </View>
+                </ScrollView>
             </View>
 
         );

@@ -5,6 +5,7 @@ const Theme = {
     accentColor: '#1d9b54',
     textColor: "#F8F8FF",
     secondaryColor: "#1f1f1f",
+    dullText: 'silver',
     
     appearanceContainer: {
         flex: 1,
@@ -49,11 +50,11 @@ const Theme = {
         raised: true,
         buttonStyle: {
             backgroundColor: '#1d9b54',
-            borderRadius : 14,
+            borderRadius : 12,
         },
         containerStyle: {
             margin: '3%',
-            borderRadius : 14,
+            borderRadius : 12,
         },
         titleStyle: {
             fontSize: 18,
