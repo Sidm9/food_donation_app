@@ -3,7 +3,7 @@ import { Text, ThemeProvider, Button } from 'react-native-elements'
 import { View } from 'react-native';
 import theme from '../GlobalStyles';
 import { GetUser } from '../../GetUser';
-import { color } from 'react-native-reanimated';
+
 
 const HomeScreen = ({ navigation }) => {
 
@@ -16,20 +16,21 @@ const HomeScreen = ({ navigation }) => {
         }
 
     ]
-
-    const [User, setUser] = useState([])
+    
+    const [User, setUser] = useState([]);
 
     const callUser = async () => {
         console.log("lol");
         const a = await GetUser();
         setUser(a.split("@"))
         console.log("User is in ", a);
+
     }
 
     useEffect(() => {
-        let isMounted = true; // note this flag denote mount status
-        callUser();
-        return () => { isMounted = false };
+        const ismount = true;
+        callUser
+        return () => { ismount = false};
     }, [User])
 
     return (
@@ -43,9 +44,9 @@ const HomeScreen = ({ navigation }) => {
                         </Text>
                     </Text>
 
-                    <Button onPress={() => navigation.navigate('Volunteer')} title={type[0].name} />
+                    <Button onPress={() => navigation.navigate('Volunteer' , {User : User[0]})} title={type[0].name} />
 
-                    <Button onPress={() => navigation.navigate('Donor')} title={type[1].name} />
+                    <Button onPress={() => navigation.navigate('Donor', { User: User[0] })} title={type[1].name} />
 
                 </View>
             </View>

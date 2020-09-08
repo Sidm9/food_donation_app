@@ -6,12 +6,11 @@ import theme from './GlobalStyles';
 import ImagePicker from './ImagePicker';
 import * as Location from 'expo-location';
 import firebase from '../firestore.js';
-import AsyncStorage from '@react-native-community/async-storage';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Setting a timer']);
-const DonorScreen = ({ navigation }) => {
+const DonorScreen = ({ navigation  , route}) => {
 
-
+    const { User } = route.params;
     const [PickupWhere, setPickupWhere] = useState('');
     const [FoodItems, setFoodItems] = useState('');
     const [ImageURL, seteImageURL] = useState('');
@@ -155,7 +154,7 @@ const DonorScreen = ({ navigation }) => {
             return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
 
-
+        var img = "";
         async function uploadImageAsync(uri) {
             // Why are we using XMLHttpRequest? See:
             // https://github.com/expo/expo/issues/2402#issuecomment-443726662
@@ -181,8 +180,9 @@ const DonorScreen = ({ navigation }) => {
 
             // We're done with the blob, close and release it
             blob.close();
-
-            return await snapshot.ref.getDownloadURL().then((downloadURL) =>{
+           
+            return await snapshot.ref.getDownloadURL().then((downloadURL) => {
+                img = downloadURL;
                 seteImageURL(downloadURL);
                 console.log("IMAGE UPLOADED");
                 Alert.alert("UPLOADED IMAGE");
@@ -193,13 +193,13 @@ const DonorScreen = ({ navigation }) => {
         uploadImageAsync(Image)
 
         db.collection("Donor").doc('Card').set({
-            User: user,
+            User: img,
             PickupWhere: PickupWhere,
             FoodItems: FoodItems,
             DateOfPickup: date.toDateString(),
             TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
             Location: location,
-            ImageURL: ImageURL
+            ImageURL: ImageURL,
         })
             .then(function () {
                 console.log("Document successfully written!");

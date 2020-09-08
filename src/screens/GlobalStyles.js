@@ -5,7 +5,7 @@ const Theme = {
     accentColor: '#1d9b54',
     textColor: "#F8F8FF",
     secondaryColor: "#1f1f1f",
-
+    
     appearanceContainer: {
         flex: 1,
         backgroundColor: '#101010',
@@ -49,9 +49,11 @@ const Theme = {
         raised: true,
         buttonStyle: {
             backgroundColor: '#1d9b54',
+            borderRadius : 14,
         },
         containerStyle: {
             margin: '3%',
+            borderRadius : 14,
         },
         titleStyle: {
             fontSize: 18,
@@ -86,15 +88,15 @@ const Theme = {
     Card: {
         containerStyle: {
             backgroundColor: "#1f1f1f",
-            borderRadius: 8,
+            borderRadius: 14,
             borderColor: '#333333',
             padding: 0,
         },
     },
     cardData: {
         fontFamily: 'ProductSansBold',
-        marginLeft: '2%',
-        marginRight: '2%',
+        marginLeft: '5%',
+        marginRight: '5%',
         marginTop: '5%',
         marginBottom: '2%',
         fontSize: 25,
