@@ -16,21 +16,23 @@ const HomeScreen = ({ navigation }) => {
         }
 
     ]
-    
+
     const [User, setUser] = useState([]);
 
     const callUser = async () => {
         console.log("lol");
         const a = await GetUser();
+        if (a === null || undefined || " ") {
+            a = "nope";
+        }
         setUser(a.split("@"))
         console.log("User is in ", a);
 
     }
 
     useEffect(() => {
-        const ismount = true;
+
         callUser
-        return () => { ismount = false};
     }, [User])
 
     return (
@@ -44,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
                         </Text>
                     </Text>
 
-                    <Button onPress={() => navigation.navigate('Volunteer' , {User : User[0]})} title={type[0].name} />
+                    <Button onPress={() => navigation.navigate('Volunteer', { User: User[0] })} title={type[0].name} />
 
                     <Button onPress={() => navigation.navigate('Donor', { User: User[0] })} title={type[1].name} />
 

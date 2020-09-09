@@ -154,10 +154,10 @@ export default class Volunteer extends React.Component {
                     <View style={{ flex: 2, flexDirection: 'row', }}>
                         <Carousel
                             layout={"default"}
-                            layoutCardOffset={`90`}
+                            // layoutCardOffset={90}
                             ref={ref => this.carousel = ref}
                             data={this.state.carouselItems}
-                            sliderWidth={50}
+                            sliderWidth={10}
                             itemWidth={375}
                             renderItem={this._renderItem}
                             onSnapToItem={index => this.setState({ activeIndex: index })} />
@@ -167,7 +167,7 @@ export default class Volunteer extends React.Component {
                     <View style={{ flex: 1, flexDirection: 'row', }}>
                         <Carousel
                             layout={"default"}
-                            layoutCardOffset={90}
+                            // layoutCardOffset={90}
                             ref={ref => this.carousel = ref}
                             data={this.state.carouselItems}
                             sliderWidth={50}

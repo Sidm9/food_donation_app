@@ -7,6 +7,7 @@ import ImagePicker from './ImagePicker';
 import * as Location from 'expo-location';
 import firebase from '../firestore.js';
 import { YellowBox } from 'react-native';
+
 YellowBox.ignoreWarnings(['Setting a timer']);
 const DonorScreen = ({ navigation  , route}) => {
 
@@ -193,13 +194,13 @@ const DonorScreen = ({ navigation  , route}) => {
         uploadImageAsync(Image)
 
         db.collection("Donor").doc('Card').set({
-            User: img,
+            User: User,
             PickupWhere: PickupWhere,
             FoodItems: FoodItems,
             DateOfPickup: date.toDateString(),
             TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
             Location: location,
-            ImageURL: ImageURL,
+            ImageURL: img,
         })
             .then(function () {
                 console.log("Document successfully written!");

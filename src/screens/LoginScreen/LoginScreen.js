@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
             <ThemeProvider theme={theme}>
                 <View style={[theme.mainContainer, theme.mainContainer.center]}>
 
-                    <Text style={theme.headerText}>Welcome{"\n"}Back</Text>
+                    <Text style={theme.headerText}>Welcome{"\n"}Back !</Text>
 
                     <Input
 
@@ -86,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
 
                     <Button
                         title="Bypass (DEV) "
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => navigation.navigate('BottomNav')}
                     />
 
                     <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
