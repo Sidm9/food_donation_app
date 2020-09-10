@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
         firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
             console.log("You are in !!");
             addToLocalStorage(emailAddress);
-            navigation.navigate('Home');
+            navigation.navigate('BottomNav');
         })
             .catch(function (error) {
                 // Handle Errors here.
@@ -51,8 +51,8 @@ const LoginScreen = ({ navigation }) => {
                     setPasswordError(errorMessage);
                 }
                 else { setPasswordError('') }
-
             })
+        
     }
     return (
         <View style={theme.appearanceContainer}>

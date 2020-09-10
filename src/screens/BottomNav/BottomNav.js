@@ -14,17 +14,13 @@ const BottomNav = () => {
 
 
 
-    const [User, setUser] = useState([]);
+    const [User, setUser] = useState();
 
     const callUser = async () => {
-        console.log("lol");
-        const a = await GetUser();
-        if (a === null || undefined || " ") {
-            a = "nope";
-        }
-        setUser(a.split("@"))
-        console.log("User is in ", a);
+        USERTOKEN = await GetUser();
+        setUser(a);
 
+        console.log(a);
     }
 
     useEffect(() => {
@@ -54,7 +50,7 @@ const BottomNav = () => {
                             if (focused) {
                                 return (
                                     <Icon color={theme.accentColor} name="account-circle" type="material-icons" style={{ color: "green" }} />
-                                );
+                                ); z
                             } else {
                                 return <Icon color={theme.textColor} name="account-circle" type="material-icons" />;
                             }
@@ -69,8 +65,9 @@ const BottomNav = () => {
                     style: { backgroundColor: theme.backgroundColor }
                 }}>
                 <Tab.Screen name="Volunteer" component={Volunteer} />
-                <Tab.Screen name="Donor" component={Donor} initialParams={{ User: User }} />
+                <Tab.Screen name="Donor" component={Donor} />
                 <Tab.Screen name="Profile" component={Profile} />
+
             </Tab.Navigator>
         </>
     );

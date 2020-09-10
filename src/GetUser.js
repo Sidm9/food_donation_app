@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const GetUser = async () => {
+const GetUser = async () => {
     let USERVALUE = ""
+    var USER_TOKEN = []
     try {
         const value = await AsyncStorage.getItem('key');    
         if (value !== null || undefined) {
@@ -13,7 +14,10 @@ export const GetUser = async () => {
         // Error retrieving data
         value = "NONE"
         USERVALUE = value;
+        USER_TOKEN = USERVALUE.split("@")
     }
 
-    return USERVALUE;
+    return (USERVALUE[0]);
 }
+
+export default GetUser

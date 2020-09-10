@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, ScrollView , Alert } from 'react-native';
-import { Text, Button, Input, ThemeProvider } from 'react-native-elements';
+import { View, ScrollView, Alert } from 'react-native';
+import { Text, Button, Input, ThemeProvider, CheckBox } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from './GlobalStyles';
 import ImagePicker from './ImagePicker';
@@ -9,9 +9,9 @@ import firebase from '../firestore.js';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
-const DonorScreen = ({ navigation  , route}) => {
+const DonorScreen = ({ navigation }) => {
 
-    const { User } = route.params;
+    // const { User } = route.params;
     const [PickupWhere, setPickupWhere] = useState('');
     const [FoodItems, setFoodItems] = useState('');
     const [ImageURL, seteImageURL] = useState('');
@@ -19,7 +19,7 @@ const DonorScreen = ({ navigation  , route}) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-
+    const [CheckVeg, setCheckVeg] = useState(true);
     const [Image, setImage] = useState('');
 
     const [Disabled, setDisabled] = useState(true);
@@ -64,8 +64,18 @@ const DonorScreen = ({ navigation  , route}) => {
                         <Button onPress={showDatepicker} title="Change Date" />
                     </View>
                     <View>
+                        <CheckBox
+                            fontFamily="ProductSans"
+                            checkedColor={theme.primaryColor}
+                            title='Veg'
+                            checked={CheckVeg}
+                            onIconPress = {handleCheckVeg}
+                        />
+                    </View>
+                    <View>
                         <Button onPress={showTimepicker} title="Change Time" />
                     </View>
+
                 </View>
                 {show && (
                     <DateTimePicker
@@ -91,7 +101,7 @@ const DonorScreen = ({ navigation  , route}) => {
                     placeholder={date.toLocaleTimeString().replace(/:\d+ /, ' ')}
                     editable={false}
                     style={{ color: 'black' }}
-                    label=" Time of Pickup"/>
+                    label=" Time of Pickup" />
 
             </ThemeProvider>
 
@@ -142,6 +152,10 @@ const DonorScreen = ({ navigation  , route}) => {
         setFoodItems(value.split(","));
     }
 
+    const handleCheckVeg = () => {
+        setCheckVeg(!CheckVeg);
+    }
+
     const handleSubmit = async () => {
 
 
@@ -181,33 +195,41 @@ const DonorScreen = ({ navigation  , route}) => {
 
             // We're done with the blob, close and release it
             blob.close();
-           
+
             return await snapshot.ref.getDownloadURL().then((downloadURL) => {
                 img = downloadURL;
                 seteImageURL(downloadURL);
                 console.log("IMAGE UPLOADED");
                 Alert.alert("UPLOADED IMAGE");
+                console.log("IMAGE THAT IS NOT A STATE IS ,", img)
+                if (img != null || "") {
+                    uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img);
+                }
             })
 
         }
 
-        uploadImageAsync(Image)
-
-        db.collection("Donor").doc('Card').set({
-            User: User,
-            PickupWhere: PickupWhere,
-            FoodItems: FoodItems,
-            DateOfPickup: date.toDateString(),
-            TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
-            Location: location,
-            ImageURL: img,
-        })
-            .then(function () {
-                console.log("Document successfully written!");
+        async function uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img) {
+            console.log("FROM FIREBASE CALLING , ", img);
+            db.collection("Donor").add({
+                // User: User,
+                PickupWhere: PickupWhere,
+                FoodItems: FoodItems,
+                DateOfPickup: date.toDateString(),
+                TimeOfPickup: date.toLocaleTimeString().replace(/:\d+ /, ' '),
+                Location: location,
+                ImageURL: img,
             })
-            .catch(function (error) {
-                console.error("Error writing document: ", error);
-            });
+                .then(function (docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
+
+
+        uploadImageAsync(Image)
 
     }
 

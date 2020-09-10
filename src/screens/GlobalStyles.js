@@ -6,7 +6,7 @@ const Theme = {
     textColor: "#F8F8FF",
     secondaryColor: "#1f1f1f",
     dullText: 'silver',
-    
+
     appearanceContainer: {
         flex: 1,
         backgroundColor: '#101010',
@@ -50,11 +50,11 @@ const Theme = {
         raised: true,
         buttonStyle: {
             backgroundColor: '#1d9b54',
-            borderRadius : 12,
+            borderRadius: 12,
         },
         containerStyle: {
             margin: '3%',
-            borderRadius : 12,
+            borderRadius: 12,
         },
         titleStyle: {
             fontSize: 18,
@@ -102,6 +102,20 @@ const Theme = {
         marginBottom: '2%',
         fontSize: 25,
     },
+    CheckBox: {
+        containerStyle: {
+            backgroundColor: '#101010',
+            borderWidth: 0,
+            marginBottom :15,
+        },
+        textStyle: {
+            fontFamily: 'ProductSans',
+            color: '#F8F8FF',
+            fontFamily: 'ProductSans',
+            fontWeight: 'normal',
+        },
+    }
+
 
 
 }
