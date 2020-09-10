@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { View, ScrollView, Alert } from 'react-native';
 import { Text, Button, Input, ThemeProvider, CheckBox } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import theme from './GlobalStyles';
-import ImagePicker from './ImagePicker';
+import theme from '../GlobalStyles';
+import ImagePicker from '../../Components/ImagePicker.js';
 import * as Location from 'expo-location';
-import firebase from '../firestore.js';
+import GetUser from '../../GetUser'
+import firebase from '../../firestore';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -67,9 +68,9 @@ const DonorScreen = ({ navigation }) => {
                         <CheckBox
                             fontFamily="ProductSans"
                             checkedColor={theme.primaryColor}
-                            title='Veg'
+                            title='VEG'
                             checked={CheckVeg}
-                            onIconPress = {handleCheckVeg}
+                            onIconPress={handleCheckVeg}
                         />
                     </View>
                     <View>
@@ -149,7 +150,7 @@ const DonorScreen = ({ navigation }) => {
     }
 
     const handleFoodItems = (value) => {
-        setFoodItems(value.split(","));
+        setFoodItems(value);
     }
 
     const handleCheckVeg = () => {
@@ -234,10 +235,21 @@ const DonorScreen = ({ navigation }) => {
     }
 
 
+    const [User, setUser] = useState("")
+    const getUserToken = async () => {
+        let a = ""
+        a = await GetUser();
+        console.log(a)
+        setUser(a);
+    }
+
+
     useEffect(() => {
 
         //WARNING REMOVAL 
         let isMounted = true; // note this flag denote mount status
+
+        getUserToken();
 
         if (PickupWhere && FoodItems && Image && location !== '' || null) {
 
@@ -248,7 +260,7 @@ const DonorScreen = ({ navigation }) => {
             setDisabled(true)
         }
         return () => { isMounted = false };
-    }, [PickupWhere, FoodItems, Image, location])
+    }, [PickupWhere, FoodItems, Image])
 
     return (
         <View style={theme.appearanceContainer}>
@@ -256,7 +268,7 @@ const DonorScreen = ({ navigation }) => {
             <ThemeProvider theme={theme}>
                 <View style={theme.mainContainer}>
 
-                    <Text style={theme.headerText}>Donate Food Details </Text>
+                    <Text style={theme.headerText}>Donate Food ♨ </Text>
                     <ScrollView>
                         <Input
                             placeholder='221 Baker Street..'

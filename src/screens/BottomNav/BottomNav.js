@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
-import Volunteer from '../VolunteerScreen'
-import Donor from '../DonorScreen';
-import Profile from '../Profile/Profile'
+import Volunteer from './VolunteerScreen'
+import Donor from './DonorScreen';
+import Profile from './Profile'
 import theme from '../GlobalStyles';
 import { GetUser } from '../../GetUser';
 

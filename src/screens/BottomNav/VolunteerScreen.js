@@ -1,11 +1,10 @@
 import React from 'react'
 import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
 import { ScrollView, View } from 'react-native';
-import theme from './GlobalStyles';
+import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
-import GetUser from '../GetUser'
-import firebase from '../firestore';
-import AsyncStorage from '@react-native-community/async-storage';
+import GetUser from '../../GetUser'
+import firebase from '../../firestore';
 
 
 export default class Volunteer extends React.Component {
@@ -25,7 +24,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     user: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/food2.png")
+                    img: require("../../../assets/food2.png")
                 },
                 {
                     title: "Item 1",
@@ -34,7 +33,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/food3.jpg")
+                    img: require("../../../assets/food3.jpg")
                 },
                 {
                     title: "Item 1",
@@ -43,7 +42,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/food3.jpg")
+                    img: require("../../../assets/food3.jpg")
                 },
                 {
                     title: "Item 1",
@@ -52,7 +51,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/food3.jpg")
+                    img: require("../../../assets/food3.jpg")
                 },
                 {
                     title: "Item 1",
@@ -61,7 +60,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     User: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/food3.jpg")
+                    img: require("../../../assets/food3.jpg")
                 },
             ],
             carouselNon: [
@@ -72,7 +71,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     user: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/foodNON.jpg")
+                    img: require("../../../assets/foodNON.jpg")
 
                 },
                 {
@@ -82,7 +81,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     user: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/foodNON.jpg")
+                    img: require("../../../assets/foodNON.jpg")
 
                 },
                 {
@@ -92,7 +91,7 @@ export default class Volunteer extends React.Component {
                     time: "2:30 PM",
                     user: "Siddharth",
                     text: "Text 1",
-                    img: require("../../assets/foodNON.jpg")
+                    img: require("../../../assets/foodNON.jpg")
 
                 },
             ]
@@ -179,8 +178,8 @@ export default class Volunteer extends React.Component {
         console.log("hoho")
         // const a =  GetUser;
 
-        const a = await GetUser()
-        console.log(a)
+        this.setState({ User: await GetUser() })
+        console.log(this.state.User)
 
         console.log("BABLABLDA")
     }
@@ -193,7 +192,7 @@ export default class Volunteer extends React.Component {
         return (
             <View style={theme.appearanceContainer}>
                 <ScrollView>
-                    {/* <Text style={[theme.headerText, { marginBottom: '2%' }]}>    </Text> */}
+                    <Text style={[theme.headerText, { marginTop: '5%', marginBottom: '0%', fontSize: 35 }]}> Hi! <Text style={[theme.headerText, { fontSize: 30 , color : theme.accentColor }]} >{this.state.User} </Text> </Text>
                     <Text style={[theme.headerText, { marginBottom: '2%' }]}> Vegetarian  </Text>
                     <View style={{ flex: 2, flexDirection: 'row', }}>
                         <Carousel

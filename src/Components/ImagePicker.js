@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image, View, Platform, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import theme from './GlobalStyles';
+import theme from '../screens/GlobalStyles';
 import { ThemeProvider, Button, Icon } from 'react-native-elements';
 
 export default class ImagePickerExample extends React.Component {

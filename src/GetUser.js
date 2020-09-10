@@ -9,15 +9,15 @@ const GetUser = async () => {
             // We have data!!
             console.log("fron the getuser " ,value);
             USERVALUE = value;
+            USER_TOKEN = USERVALUE.split("@")
         }
     } catch (error) {
         // Error retrieving data
         value = "NONE"
-        USERVALUE = value;
-        USER_TOKEN = USERVALUE.split("@")
+        console.log(error)
     }
 
-    return (USERVALUE[0]);
+    return (USER_TOKEN[0]);
 }
 
 export default GetUser
