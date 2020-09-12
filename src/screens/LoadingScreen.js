@@ -3,10 +3,17 @@ import * as Font from 'expo-font';
 import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
 import { ActivityIndicator, View, ThemeProvider } from 'react-native';
+import GetUser from '../GetUser';
 
 
 const LoadingScreen = ({ navigation }) => {
     const [loaded, setloaded] = useState(false)
+    const [User, setUser] = useState('');
+
+    const CheckUser = async () => {
+        var resp = await GetUser();
+        setUser(resp);
+    }
     const runn = async () => {
 
         await Font.loadAsync({
@@ -15,21 +22,31 @@ const LoadingScreen = ({ navigation }) => {
         });
         setloaded(true)
         console.log(loaded)
+
+
         if (loaded == true) {
-            navigation.navigate("Login");
+            if (User != null || '' || undefined) {
+                navigation.navigate("BottomNav");
+            }
+            else {
+                navigation.navigate("Login");
+            }
         }
     }
 
     useEffect(() => {
         runn();
+        CheckUser();
     }, [loaded, setloaded]);
 
     return (
 
         <View style={theme.appearanceContainer}>
+
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <ActivityIndicator size="large" />
-                <Text style={{ marginTop: 10 }}> Loading... </Text>
+                <Text style={{ marginTop: 10, color: theme.textColor }}> Loading... </Text>
+
             </View>
 
         </View>

@@ -1,115 +1,21 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
 import { ScrollView, View } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
+import FetchFromDB from '../../FetchFromDB';
 import GetUser from '../../GetUser'
 import firebase from '../../firestore';
 
+const Volunteer = () => {
+    const [User, setUser] = useState('')
+    const [activeIndex, setactiveIndex] = useState(0)
+    const carouselRef = useRef(null)
+    const [carouselItems, setcarouselItems] = useState([]);
 
-export default class Volunteer extends React.Component {
+    const _renderItem = ({ item, index }) => {
 
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            User: "",
-            activeIndex: 0,
-            carouselItems: [
-                {
-                    title:
-                        "Bruschetta",
-                    address: "221 Baker Street London",
-                    date: "11 September 2020",
-                    time: "2:30 PM",
-                    user: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/food2.png")
-                },
-                {
-                    title: "Item 1",
-                    address: "b2 602 eldeco",
-                    date: "22 August 2020",
-                    time: "2:30 PM",
-                    User: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/food3.jpg")
-                },
-                {
-                    title: "Item 1",
-                    address: "221 Baker Street",
-                    date: "22 August 2020",
-                    time: "2:30 PM",
-                    User: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/food3.jpg")
-                },
-                {
-                    title: "Item 1",
-                    address: "221 Baker Street",
-                    date: "22 August 2020",
-                    time: "2:30 PM",
-                    User: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/food3.jpg")
-                },
-                {
-                    title: "Item 1",
-                    address: "221 Baker Street",
-                    date: "22 August 2020",
-                    time: "2:30 PM",
-                    User: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/food3.jpg")
-                },
-            ],
-            carouselNon: [
-                {
-                    title: "Meat Balls",
-                    address: "221 Baker Street London",
-                    date: "11 September 2020",
-                    time: "2:30 PM",
-                    user: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/foodNON.jpg")
-
-                },
-                {
-                    title: "Chicken",
-                    address: "221 Baker Street London",
-                    date: "11 September 2020",
-                    time: "2:30 PM",
-                    user: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/foodNON.jpg")
-
-                },
-                {
-                    title: "Bruschetta",
-                    address: "221 Baker Street London",
-                    date: "11 September 2020",
-                    time: "2:30 PM",
-                    user: "Siddharth",
-                    text: "Text 1",
-                    img: require("../../../assets/foodNON.jpg")
-
-                },
-            ]
-        }
-    }
-
-
-
-    _renderItem({ item, index }) {
-
-        function renderFoodItems() {
-            var list = carouselItems.title.map = ((i) => {
-                key = { i }
-                return (
-                    <Text>{i}</Text>
-                )
-            })
-        }
+        // console.log("CURRENT INDEX => " , carouselRef.currentIndex);
         return (
 
             <ThemeProvider theme={theme}>
@@ -119,22 +25,22 @@ export default class Volunteer extends React.Component {
 
                     <Card>
                         <Card.Image
-                            source={item.img}
+                            source={{ uri: item.ImageURL }}
                             transition={true}
                             style={{ width: '100%', height: 200, borderRadius: 14 }}
                         />
                         <View style={theme.cardData}>
 
-                            <Text style={{ fontFamily: 'ProductSansBold' }}>{item.title}</Text>
+                            <Text style={{ fontFamily: 'ProductSansBold' }}>{item.FoodItems}</Text>
 
 
-                            <Text>{item.address} </Text>
+                            <Text>{item.PickupWhere} </Text>
 
 
                             <Text style={{ color: theme.dullText }}>
                                 Date: &nbsp;
                                     <Text>
-                                    {item.date}
+                                    {item.DateOfPickup}
                                 </Text>
                             </Text>
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
@@ -142,7 +48,7 @@ export default class Volunteer extends React.Component {
 
                                     Time: &nbsp;
                                     <Text>
-                                        {item.time}
+                                        {item.TimeOfPickup}
                                     </Text>
 
                                 </Text>
@@ -169,59 +75,59 @@ export default class Volunteer extends React.Component {
                 </ScrollView>
 
             </ThemeProvider>
-
         )
+    };
+
+    const GetUserToken = async () => {
+        let a = ""
+        a = await GetUser();
+        setUser(a);
+        // console.log(User)
     }
 
+    const FetchItems = () => {
 
-    async componentDidMount() {
-        console.log("hoho")
-        // const a =  GetUser;
+        const db = firebase.firestore()
+        var DonorRef = db.collection("Donor");
 
-        this.setState({ User: await GetUser() })
-        console.log(this.state.User)
+        DonorRef.get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let items = doc.data();
+                // console.log(items.length)
+                setcarouselItems(carouselItems => [...carouselItems, items])
+            });
 
-        console.log("BABLABLDA")
+        });
+
     }
 
-    render() {
+    useEffect(() => {
+        GetUserToken()
+        FetchItems()
 
 
+    }, [])
 
 
-        return (
-            <View style={theme.appearanceContainer}>
-                <ScrollView>
-                    <Text style={[theme.headerText, { marginTop: '5%', marginBottom: '0%', fontSize: 35 }]}> Hi! <Text style={[theme.headerText, { fontSize: 30 , color : theme.accentColor }]} >{this.state.User} </Text> </Text>
-                    <Text style={[theme.headerText, { marginBottom: '2%' }]}> Vegetarian  </Text>
-                    <View style={{ flex: 2, flexDirection: 'row', }}>
-                        <Carousel
-                            layout={"default"}
-                            // layoutCardOffset={90}
-                            ref={ref => this.carousel = ref}
-                            data={this.state.carouselItems}
-                            sliderWidth={10}
-                            itemWidth={375}
-                            renderItem={this._renderItem}
-                            onSnapToItem={index => this.setState({ activeIndex: index })} />
+    return (
+        <View style={theme.appearanceContainer}>
+            <Text style={theme.headerText}>Hi!<Text style = {{color : theme.primaryColor , fontFamily : 'ProductSans'}}> {User}</Text></Text>
+            <View style={{ flex: 1, flexDirection: 'row', }}>
 
-                    </View>
-                    <Text style={[theme.headerText, { marginBottom: '2%' }]}> Non Vegetarian  </Text>
-                    <View style={{ flex: 1, flexDirection: 'row', }}>
-                        <Carousel
-                            layout={"default"}
-                            // layoutCardOffset={90}
-                            ref={ref => this.carousel = ref}
-                            data={this.state.carouselNon}
-                            sliderWidth={50}
-                            itemWidth={385}
-                            renderItem={this._renderItem}
-                            onSnapToItem={index => this.setState({ activeIndex: index })} />
+                <Carousel
+                    ref={carouselRef}
+                    data={carouselItems}
+                    layout='default'
+                    layoutCardOffset={18}
+                    renderItem={_renderItem}
+                    sliderWidth={250}
+                    itemWidth={325}
+                    onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
+                />
 
-                    </View>
-                </ScrollView>
             </View>
-
-        );
-    }
+        </View>
+    );
 }
+
+export default Volunteer
