@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity, StatusBar } from 'react-native';
+import { View, TouchableOpacity, StatusBar, BackHandler, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { CreatUserToken } from '../../TOKEN.js';
 const LoginScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -21,12 +22,8 @@ const LoginScreen = ({ navigation }) => {
         console.log(password);
     }
 
-    const addToLocalStorage = async (value) => {
-        try {
-            await AsyncStorage.setItem('key', value)
-        } catch (e) {
-            console.log(e);
-        }
+    const addToLocalStorage = (value) => {
+        CreatUserToken(value);
     }
 
     const handleSubmit = () => {
@@ -52,8 +49,26 @@ const LoginScreen = ({ navigation }) => {
                 }
                 else { setPasswordError('') }
             })
-        
+
     }
+
+
+    useEffect(() => {
+        const backAction = () => {
+            BackHandler.exitApp()
+
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => backHandler.remove();
+    }, []);
+
+
     return (
         <View style={theme.appearanceContainer}>
             <StatusBar barStyle="light-content" backgroundColor='#101010' />

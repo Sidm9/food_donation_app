@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
 import FetchFromDB from '../../FetchFromDB';
-import GetUser from '../../GetUser'
+import {GetUser} from '../../TOKEN'
 import firebase from '../../firestore';
 
 const Volunteer = () => {

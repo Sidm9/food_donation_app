@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from '../GlobalStyles';
 import ImagePicker from '../../Components/ImagePicker.js';
 import * as Location from 'expo-location';
-import GetUser from '../../GetUser'
+import {GetUser} from '../../TOKEN'
 import firebase from '../../firestore';
 import { YellowBox } from 'react-native';
 

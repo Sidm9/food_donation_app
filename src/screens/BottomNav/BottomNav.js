@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 import Volunteer from './VolunteerScreen'
+import { StatusBar } from 'react-native';
 import Donor from './DonorScreen';
 import Profile from './Profile'
 import theme from '../GlobalStyles';
-import { GetUser } from '../../GetUser';
+import { GetUser } from '../../TOKEN';
 
 
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ const BottomNav = () => {
 
     return (
         <>
+            <StatusBar barStyle="light-content" backgroundColor='#101010' />
             <Tab.Navigator lazy={true}
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {

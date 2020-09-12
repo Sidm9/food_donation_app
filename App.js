@@ -28,7 +28,7 @@ export default function App() {
         }}>
         <Stack.Screen options={{ headerShown: null }} name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Donor" component={DonorScreen} />
-        <Stack.Screen options={{ headerShown: null }} name="Login" component={LoginScreen} />
+        <Stack.Screen options={{ headerShown: null, gestureEnabled: false}} name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen options={{ headerShown: null }} name="Registeration" component={RegistrationScreen} />
         <Stack.Screen name="Volunteer" component={VolunteerScreen} />

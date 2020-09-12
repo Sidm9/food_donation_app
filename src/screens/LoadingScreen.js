@@ -3,7 +3,7 @@ import * as Font from 'expo-font';
 import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
 import { ActivityIndicator, View, ThemeProvider } from 'react-native';
-import GetUser from '../GetUser';
+import {GetUser} from '../TOKEN';
 
 
 const LoadingScreen = ({ navigation }) => {

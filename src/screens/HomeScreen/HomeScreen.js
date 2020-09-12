@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, ThemeProvider, Button } from 'react-native-elements'
 import { View } from 'react-native';
 import theme from '../GlobalStyles';
-import { GetUser } from '../../GetUser';
+// import { GetUser } from '../../GetUser';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -19,16 +19,16 @@ const HomeScreen = ({ navigation }) => {
 
     const [User, setUser] = useState([]);
 
-    const callUser = async () => {
-        console.log("lol");
-        const a = await GetUser();
-        if (a === null || undefined || " ") {
-            a = "nope";
-        }
-        setUser(a.split("@"))
-        console.log("User is in ", a);
+    // const callUser = async () => {
+    //     console.log("lol");
+    //     const a = await GetUser();
+    //     if (a === null || undefined || " ") {
+    //         a = "nope";
+    //     }
+    //     setUser(a.split("@"))
+    //     console.log("User is in ", a);
 
-    }
+    // }
 
     useEffect(() => {
 
