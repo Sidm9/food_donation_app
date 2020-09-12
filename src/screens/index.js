@@ -13,3 +13,5 @@ export { default as LoadingScreen } from './LoadingScreen'
 export { default as BottomNav } from './BottomNav/BottomNav'
 
 export { default as Profile } from './BottomNav/Profile'
+
+export { default as Maps } from './BottomNav/Maps'

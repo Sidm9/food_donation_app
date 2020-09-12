@@ -7,13 +7,13 @@ import FetchFromDB from '../../FetchFromDB';
 import {GetUser} from '../../TOKEN'
 import firebase from '../../firestore';
 
-const Volunteer = () => {
+const Volunteer = ({navigation}) => {
     const [User, setUser] = useState('')
     const [activeIndex, setactiveIndex] = useState(0)
     const carouselRef = useRef(null)
     const [carouselItems, setcarouselItems] = useState([]);
 
-    const _renderItem = ({ item, index }) => {
+    const _renderItem = ({ item, index, }) => {
 
         // console.log("CURRENT INDEX => " , carouselRef.currentIndex);
         return (
@@ -57,6 +57,7 @@ const Volunteer = () => {
 
                             <Button
                                 type="outline"
+                                onPress={() => navigation.navigate("Maps")}
                                 buttonStyle={{
                                     backgroundColor: theme.backgroundColor,
                                     borderColor: theme.primaryColor,
