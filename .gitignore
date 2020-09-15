@@ -1,6 +1,9 @@
 node_modules/**/*
 src/firestore.js
+<<<<<<< HEAD
 *app.json
+=======
+>>>>>>> parent of dac2908... Added Map Integration
 .expo/*
 npm-debug.*
 *.jks
