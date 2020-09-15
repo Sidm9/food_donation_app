@@ -19,6 +19,12 @@
     "ios": {
       "supportsTablet": true
     },
+    "android" : {
+      "package" : "com.food_donation_app",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyCdGZnOCqJ71wnTQOURD9KvWLgiGRhgS3A" }   
+     }
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
