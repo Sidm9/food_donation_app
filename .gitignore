@@ -1,6 +1,6 @@
 node_modules/**/*
 src/firestore.js
-app.json
+/app.json
 .expo/*
 npm-debug.*
 *.jks
