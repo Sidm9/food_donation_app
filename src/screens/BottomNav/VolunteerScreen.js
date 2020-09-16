@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
-import { ScrollView, View } from 'react-native';
+import { Linking, ScrollView, View } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
 import FetchFromDB from '../../FetchFromDB';
@@ -57,7 +57,7 @@ const Volunteer = ({navigation}) => {
 
                             <Button
                                 type="outline"
-                                onPress={() => navigation.navigate("Maps")}
+                                onPress={() => Linking.openURL(`google.navigation:q=${item.Location.coords.latitude}+${item.Location.coords.longitude}`)}
                                 buttonStyle={{
                                     backgroundColor: theme.backgroundColor,
                                     borderColor: theme.primaryColor,
