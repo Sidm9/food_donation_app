@@ -92,14 +92,24 @@ const Volunteer = ({ navigation }) => {
         const db = firebase.firestore()
         var DonorRef = db.collection("Donor");
 
-        DonorRef.get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                let items = doc.data();
-                // console.log(items.length)
-                setcarouselItems(carouselItems => [...carouselItems, items])
-            });
+        // DonorRef.get().then(function (querySnapshot) {
+        //     querySnapshot.forEach(function (doc) {
+        //         let items = doc.data();
+        //         // console.log(items.length)
+        //         setcarouselItems(carouselItems => [...carouselItems, items])
+        //     });
 
-        });
+        // });
+        var tempData = []
+        DonorRef.onSnapshot(v => {
+            v.docs.forEach(doc => {
+                console.log(doc.data())
+                tempData.push(doc.data())
+            });
+            setcarouselItems(tempData)
+
+        })
+
 
     }
 
@@ -127,7 +137,6 @@ const Volunteer = ({ navigation }) => {
                     itemWidth={355}
                     onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
                 />
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 
             </View>
         </View>
