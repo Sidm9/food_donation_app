@@ -195,7 +195,7 @@ const DonorScreen = ({ navigation }) => {
                 Alert.alert("UPLOADED IMAGE");
                 console.log("IMAGE THAT IS NOT A STATE IS ,", img)
                 if (img != null || "") {
-                    uploadToFireStore(db, User, PickupWhere, CheckVeg, FoodItems, date, location, img);
+                    uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img);
                 }
             })
 

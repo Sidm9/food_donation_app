@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
-import { Linking, ScrollView, View } from 'react-native';
+import { Linking, ScrollView, View, RefreshControl } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
 import FetchFromDB from '../../FetchFromDB';
@@ -12,7 +12,7 @@ const Volunteer = ({ navigation }) => {
     const [activeIndex, setactiveIndex] = useState(0)
     const carouselRef = useRef(null)
     const [carouselItems, setcarouselItems] = useState([]);
-    const [counter, setC] = useState(0);
+
 
     const _renderItem = ({ item, index, }) => {
 
@@ -113,7 +113,8 @@ const Volunteer = ({ navigation }) => {
 
     return (
         <View style={theme.appearanceContainer}>
-            <Text style={theme.headerText}>Hi!<Text style = {{color : theme.primaryColor , fontFamily : 'ProductSans'}}> {User}</Text></Text>
+            <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
+            <Text style={theme.headerText}>Foods Avaliable </Text>
             <View style={{ flex: 1, flexDirection: 'row', }}>
 
                 <Carousel
@@ -126,6 +127,7 @@ const Volunteer = ({ navigation }) => {
                     itemWidth={355}
                     onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
                 />
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 
             </View>
         </View>
