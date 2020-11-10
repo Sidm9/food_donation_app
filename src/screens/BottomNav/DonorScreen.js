@@ -20,7 +20,6 @@ const DonorScreen = ({ navigation }) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [CheckVeg, setCheckVeg] = useState(true);
     const [Image, setImage] = useState('');
 
     const [Disabled, setDisabled] = useState(true);
@@ -64,15 +63,7 @@ const DonorScreen = ({ navigation }) => {
                     <View>
                         <Button onPress={showDatepicker} title="Change Date" />
                     </View>
-                    <View>
-                        <CheckBox
-                            fontFamily="ProductSans"
-                            checkedColor={theme.primaryColor}
-                            title='VEG'
-                            checked={CheckVeg}
-                            onIconPress={handleCheckVeg}
-                        />
-                    </View>
+                    
                     <View>
                         <Button onPress={showTimepicker} title="Change Time" />
                     </View>
@@ -204,7 +195,7 @@ const DonorScreen = ({ navigation }) => {
                 Alert.alert("UPLOADED IMAGE");
                 console.log("IMAGE THAT IS NOT A STATE IS ,", img)
                 if (img != null || "") {
-                    uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img);
+                    uploadToFireStore(db, User, PickupWhere, CheckVeg, FoodItems, date, location, img);
                 }
             })
 

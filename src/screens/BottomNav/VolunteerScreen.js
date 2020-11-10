@@ -4,14 +4,15 @@ import { Linking, ScrollView, View } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
 import FetchFromDB from '../../FetchFromDB';
-import {GetUser} from '../../TOKEN'
+import { GetUser } from '../../TOKEN'
 import firebase from '../../firestore';
 
-const Volunteer = ({navigation}) => {
+const Volunteer = ({ navigation }) => {
     const [User, setUser] = useState('')
     const [activeIndex, setactiveIndex] = useState(0)
     const carouselRef = useRef(null)
     const [carouselItems, setcarouselItems] = useState([]);
+    const [counter, setC] = useState(0);
 
     const _renderItem = ({ item, index, }) => {
 
@@ -27,7 +28,7 @@ const Volunteer = ({navigation}) => {
                         <Card.Image
                             source={{ uri: item.ImageURL }}
                             transition={true}
-                            style={{ width: '100%', height: 200, borderRadius: 14 }}
+                            style={{ width: '100%', height: 300, borderRadius: 14 }}
                         />
                         <View style={theme.cardData}>
 
@@ -121,8 +122,8 @@ const Volunteer = ({navigation}) => {
                     layout='default'
                     layoutCardOffset={18}
                     renderItem={_renderItem}
-                    sliderWidth={250}
-                    itemWidth={325}
+                    sliderWidth={340}
+                    itemWidth={355}
                     onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
                 />
 
