@@ -3,8 +3,8 @@ import * as Font from 'expo-font';
 import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
 import { ActivityIndicator, View, ThemeProvider } from 'react-native';
-import {GetUser} from '../TOKEN';
-
+import { GetUser } from '../TOKEN';
+import { LogBox } from 'react-native';
 
 const LoadingScreen = ({ navigation }) => {
     const [loaded, setloaded] = useState(false)
@@ -33,7 +33,6 @@ const LoadingScreen = ({ navigation }) => {
             }
         }
     }
-
     useEffect(() => {
         runn();
         CheckUser();
@@ -42,8 +41,9 @@ const LoadingScreen = ({ navigation }) => {
     return (
 
         <View style={theme.appearanceContainer}>
-
+           
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                
                 <ActivityIndicator size="large" />
                 <Text style={{ marginTop: 10, color: theme.textColor }}> Loading... </Text>
 

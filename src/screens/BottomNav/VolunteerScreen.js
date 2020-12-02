@@ -7,6 +7,7 @@ import FetchFromDB from '../../FetchFromDB';
 import { GetUser } from '../../TOKEN'
 import firebase from '../../firestore';
 
+
 const Volunteer = ({ navigation }) => {
     const [User, setUser] = useState('')
     const [activeIndex, setactiveIndex] = useState(0)
@@ -91,15 +92,6 @@ const Volunteer = ({ navigation }) => {
 
         const db = firebase.firestore()
         var DonorRef = db.collection("Donor");
-
-        // DonorRef.get().then(function (querySnapshot) {
-        //     querySnapshot.forEach(function (doc) {
-        //         let items = doc.data();
-        //         // console.log(items.length)
-        //         setcarouselItems(carouselItems => [...carouselItems, items])
-        //     });
-
-        // });
         var tempData = []
         DonorRef.onSnapshot(v => {
             v.docs.forEach(doc => {

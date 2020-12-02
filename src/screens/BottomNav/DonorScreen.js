@@ -9,6 +9,7 @@ import {GetUser} from '../../TOKEN'
 import firebase from '../../firestore';
 import { YellowBox } from 'react-native';
 
+
 YellowBox.ignoreWarnings(['Setting a timer']);
 const DonorScreen = ({ navigation }) => {
 
