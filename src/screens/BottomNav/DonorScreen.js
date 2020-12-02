@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from '../GlobalStyles';
 import ImagePicker from '../../Components/ImagePicker.js';
 import * as Location from 'expo-location';
-import {GetUser} from '../../TOKEN'
+import { GetUser } from '../../TOKEN'
 import firebase from '../../firestore';
 import { YellowBox } from 'react-native';
 
@@ -64,7 +64,7 @@ const DonorScreen = ({ navigation }) => {
                     <View>
                         <Button onPress={showDatepicker} title="Change Date" />
                     </View>
-                    
+
                     <View>
                         <Button onPress={showTimepicker} title="Change Time" />
                     </View>
@@ -103,17 +103,7 @@ const DonorScreen = ({ navigation }) => {
     // LOCATION DETAILS
     const LocationProvider = () => {
 
-        useEffect(() => {
-            (async () => {
-                let { status } = await Location.requestPermissionsAsync();
-                if (status !== 'granted') {
-                    setErrorMsg('Permission to access location was denied');
-                }
 
-                let location = await Location.getCurrentPositionAsync({});
-                setLocation(location);
-            })();
-        });
 
         let text = ' Waiting..';
         if (errorMsg) {
@@ -238,12 +228,27 @@ const DonorScreen = ({ navigation }) => {
 
     useEffect(() => {
 
+
+
+        (async () => {
+            console.log("got called bitch");
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
+
+        
+
         //WARNING REMOVAL 
         let isMounted = true; // note this flag denote mount status
 
         getUserToken();
 
-        if (PickupWhere && FoodItems && Image && location !== '' || null) {
+        if (PickupWhere && FoodItems && Image !== '' || null) {
 
             setDisabled(false)
 
