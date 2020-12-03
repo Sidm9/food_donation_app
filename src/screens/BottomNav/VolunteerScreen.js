@@ -42,7 +42,7 @@ const Volunteer = ({ navigation }) => {
                         <Card.Image
                             source={{ uri: item.ImageURL }}
                             transition={true}
-                            style={{ width: '100%', height: 300, borderRadius: 14 }}
+                            style={{ width: '100%', height: 300, borderRadius: 10 }}
                         />
                         <View style={theme.cardData}>
 
@@ -132,7 +132,6 @@ const Volunteer = ({ navigation }) => {
         <View style={theme.appearanceContainer}>
             <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
             <Text style={theme.headerText}>Foods Avaliable </Text>
-            <Text style={theme.headerText}>LOGS = {carouselItems.length == null ? "Wait.." : carouselItems.length}</Text>
             <View style={{ flex: 1, flexDirection: 'row', }}>
 
                 <Carousel

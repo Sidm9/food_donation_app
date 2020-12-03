@@ -40,15 +40,18 @@ export const GetUser = async () => {
 
 
 export const GetUID = async () => {
+    var res = "";
     try {
         const value = await AsyncStorage.getItem('uid');
         if (value !== null || undefined) {
             console.log("UID of User: ", value);
+            res = value;
         }
     } catch (error) {
         value = "NONE"
         console.log(error);
     }
+    return (res);
 }
 
 
@@ -57,6 +60,7 @@ export const GetUID = async () => {
 export const RemoveUser = async () => {
     try {
         await AsyncStorage.removeItem('key')
+        await AsyncStorage.removeItem('uid')
     } catch (e) {
         // remove error
     }

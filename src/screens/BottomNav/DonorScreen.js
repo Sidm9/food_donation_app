@@ -12,7 +12,10 @@ import { YellowBox } from 'react-native';
 
 const DonorScreen = ({ navigation }) => {
 
-    // const { User } = route.params;
+    const [User, setUser] = useState("")
+    const [UID, setuid] = useState('');
+
+
     const [PickupWhere, setPickupWhere] = useState('');
     const [FoodItems, setFoodItems] = useState('');
     const [ImageURL, seteImageURL] = useState('');
@@ -62,10 +65,6 @@ const DonorScreen = ({ navigation }) => {
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: '7%' }}>
                     <View>
                         <Button onPress={showDatepicker} title="Change Date" />
-                    </View>
-
-                    <View>
-                        <Button onPress={GetUID} title="Show" />
                     </View>
 
                     <View>
@@ -189,7 +188,7 @@ const DonorScreen = ({ navigation }) => {
                 Alert.alert("UPLOADED IMAGE");
                 console.log("IMAGE THAT IS NOT A STATE IS ,", img)
                 if (img != null || "") {
-                    uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img);
+                    uploadToFireStore(db, UID, PickupWhere, FoodItems, date, location, img);
                 }
             })
 
@@ -198,7 +197,7 @@ const DonorScreen = ({ navigation }) => {
         async function uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img) {
             console.log("FROM FIREBASE CALLING , ", img);
             db.collection("Donor").add({
-                // User: User,
+                UserID: User,
                 PickupWhere: PickupWhere,
                 FoodItems: FoodItems,
                 DateOfPickup: date.toDateString(),
@@ -219,22 +218,23 @@ const DonorScreen = ({ navigation }) => {
 
     }
 
-
-    const [User, setUser] = useState("")
     const getUserToken = async () => {
-        let a = ""
-        a = await GetUser();
-        console.log(a)
-        setUser(a);
+        let user_res = "" 
+        let uid_res = ""
+        user_res = await GetUser();
+        uid_res = await GetUID();
+        console.log(user_res)
+        setUser(user_res);
+        setuid(uid_res);
     }
+
+    
 
 
     useEffect(() => {
 
-
-
         (async () => {
-            console.log("got called bitch");
+            console.log("Location fetch...");
             let { status } = await Location.requestPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
@@ -244,12 +244,13 @@ const DonorScreen = ({ navigation }) => {
             setLocation(location);
         })();
 
-        
+
 
         //WARNING REMOVAL 
         let isMounted = true; // note this flag denote mount status
 
         getUserToken();
+
 
         if (PickupWhere && FoodItems && Image !== '' || null) {
 
