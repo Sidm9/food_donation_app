@@ -3,8 +3,7 @@ import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar, BackHandler, Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { CreatUserToken } from '../../TOKEN.js';
+import { CreatUserToken, UserId } from '../../TOKEN.js';
 const LoginScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -25,14 +24,20 @@ const LoginScreen = ({ navigation }) => {
     const addToLocalStorage = (value) => {
         CreatUserToken(value);
     }
+    
+    const addUserIdToLocalStorage = (value) => {
+        UserId(value);
+    }
 
     const handleSubmit = () => {
         console.log('Button Pressed!!')
-        firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(() => {
-            console.log("You are in !!");
-            addToLocalStorage(emailAddress);
-            navigation.navigate('BottomNav');
-        })
+        firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+            .then((user) => {
+                console.log("You are in !!");
+                addToLocalStorage(emailAddress);
+                addUserIdToLocalStorage(user.user.uid);
+                navigation.navigate('BottomNav');
+            })
             .catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;

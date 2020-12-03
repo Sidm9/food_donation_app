@@ -3,9 +3,8 @@ import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
 import { Linking, ScrollView, View, RefreshControl } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
-import FetchFromDB from '../../FetchFromDB';
 import { GetUser } from '../../TOKEN'
-import firebase from '../../firestore';
+import firebase from '../../firestore.js'
 
 
 const Volunteer = ({ navigation }) => {
@@ -13,6 +12,17 @@ const Volunteer = ({ navigation }) => {
     const [activeIndex, setactiveIndex] = useState(0)
     const carouselRef = useRef(null)
     const [carouselItems, setcarouselItems] = useState([]);
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        console.log("Refreshed!")
+        wait(2000).then(() => {
+            setRefreshing(false)
+            FetchItems();
+        });
+    }, []);
 
 
     const _renderItem = ({ item, index, }) => {
@@ -22,7 +32,10 @@ const Volunteer = ({ navigation }) => {
 
             <ThemeProvider theme={theme}>
 
-                <ScrollView>
+                <ScrollView
+
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
 
                     <Card>
@@ -89,13 +102,13 @@ const Volunteer = ({ navigation }) => {
     }
 
     const FetchItems = () => {
-
+        setcarouselItems([])
+        var tempData = []
         const db = firebase.firestore()
         var DonorRef = db.collection("Donor");
-        var tempData = []
-        DonorRef.orderBy("Location.timestamp" , "desc").onSnapshot(snapshot => {
+        DonorRef.orderBy("Location.timestamp", "desc").onSnapshot(snapshot => {
             snapshot.docs.forEach(doc => {
-                console.log(doc.data())
+                //console.log(doc.data())
                 tempData.push(doc.data())
             });
             setcarouselItems(tempData)
@@ -114,16 +127,18 @@ const Volunteer = ({ navigation }) => {
 
 
     return (
+
+
         <View style={theme.appearanceContainer}>
             <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
             <Text style={theme.headerText}>Foods Avaliable </Text>
-            <Text style={theme.headerText}>Length is {carouselItems.length} </Text>
+            <Text style={theme.headerText}>LOGS = {carouselItems.length == null ? "Wait.." : carouselItems.length}</Text>
             <View style={{ flex: 1, flexDirection: 'row', }}>
 
                 <Carousel
                     ref={carouselRef}
                     data={carouselItems}
-                    layout='stack'
+                    layout='default'
                     layoutCardOffset={11}
                     renderItem={_renderItem}
                     sliderWidth={200}

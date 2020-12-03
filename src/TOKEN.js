@@ -9,6 +9,14 @@ export const CreatUserToken = async (value) => {
     }
 }
 
+export const UserId = async (value) => {
+    try {
+        await AsyncStorage.setItem('uid', value)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export const GetUser = async () => {
     let USERVALUE = ""
@@ -28,6 +36,19 @@ export const GetUser = async () => {
     }
 
     return (USER_TOKEN[0]);
+}
+
+
+export const GetUID = async () => {
+    try {
+        const value = await AsyncStorage.getItem('uid');
+        if (value !== null || undefined) {
+            console.log("UID of User: ", value);
+        }
+    } catch (error) {
+        value = "NONE"
+        console.log(error);
+    }
 }
 
 

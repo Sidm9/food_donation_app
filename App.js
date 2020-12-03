@@ -1,7 +1,7 @@
-import React from 'react'
+import React  from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator, HeaderTitle } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen, LoadingScreen, BottomNav, Profile } from './src/screens'
 
 

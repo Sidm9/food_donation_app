@@ -1,14 +1,16 @@
 import firebase from './firestore';
+var tempData = []
+export const FetchFromDB =  () => {
 
-const FetchFromDB =  async  () => {
-    var a = []
-    DonorRef.onSnapshot(v => {
-        v.docs.forEach(doc => {
-            console.log(doc.data())
-            a.push(doc.data())
-        })
+    const db = firebase.firestore()
+    var DonorRef = db.collection("Donor");
+
+    DonorRef.orderBy("Location.timestamp", "desc").onSnapshot(snapshot => {
+        snapshot.docs.forEach(doc => {
+            console.log(doc.data());
+            tempData.push(doc.data());
+        });
     })
-    console.log(a);
-    return a;
+    console.log(tempData);
+
 }
-export default FetchFromDB;

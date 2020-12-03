@@ -5,12 +5,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from '../GlobalStyles';
 import ImagePicker from '../../Components/ImagePicker.js';
 import * as Location from 'expo-location';
-import { GetUser } from '../../TOKEN'
+import { GetUID, GetUser } from '../../TOKEN'
 import firebase from '../../firestore';
 import { YellowBox } from 'react-native';
 
 
-YellowBox.ignoreWarnings(['Setting a timer']);
 const DonorScreen = ({ navigation }) => {
 
     // const { User } = route.params;
@@ -63,6 +62,10 @@ const DonorScreen = ({ navigation }) => {
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: '7%' }}>
                     <View>
                         <Button onPress={showDatepicker} title="Change Date" />
+                    </View>
+
+                    <View>
+                        <Button onPress={GetUID} title="Show" />
                     </View>
 
                     <View>
