@@ -93,8 +93,8 @@ const Volunteer = ({ navigation }) => {
         const db = firebase.firestore()
         var DonorRef = db.collection("Donor");
         var tempData = []
-        DonorRef.onSnapshot(v => {
-            v.docs.forEach(doc => {
+        DonorRef.orderBy("Location.timestamp" , "desc").onSnapshot(snapshot => {
+            snapshot.docs.forEach(doc => {
                 console.log(doc.data())
                 tempData.push(doc.data())
             });
@@ -117,15 +117,16 @@ const Volunteer = ({ navigation }) => {
         <View style={theme.appearanceContainer}>
             <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
             <Text style={theme.headerText}>Foods Avaliable </Text>
+            <Text style={theme.headerText}>Length is {carouselItems.length} </Text>
             <View style={{ flex: 1, flexDirection: 'row', }}>
 
                 <Carousel
                     ref={carouselRef}
                     data={carouselItems}
-                    layout='default'
-                    layoutCardOffset={18}
+                    layout='stack'
+                    layoutCardOffset={11}
                     renderItem={_renderItem}
-                    sliderWidth={340}
+                    sliderWidth={200}
                     itemWidth={355}
                     onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
                 />
