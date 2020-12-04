@@ -24,7 +24,7 @@ const Volunteer = ({ navigation }) => {
         });
     }, []);
 
-
+    // CARDS RENDER
     const _renderItem = ({ item, index, }) => {
 
         // console.log("CURRENT INDEX => " , carouselRef.currentIndex);
@@ -46,7 +46,10 @@ const Volunteer = ({ navigation }) => {
                         />
                         <View style={theme.cardData}>
 
-                            <Text style={{ fontFamily: 'ProductSansBold' }}>{item.FoodItems}</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                                <Text style={{ fontFamily: 'ProductSansBold' }}>{item.FoodItems}</Text>
+                                <Text style={{ color: 'grey' }}>{item.UserName}</Text>
+                            </View>
 
 
                             <Text>{item.PickupWhere} </Text>
@@ -58,6 +61,7 @@ const Volunteer = ({ navigation }) => {
                                     {item.DateOfPickup}
                                 </Text>
                             </Text>
+
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
                                 <Text style={{ color: theme.dullText }}>
 
@@ -70,20 +74,39 @@ const Volunteer = ({ navigation }) => {
                                 <Text style={{ marginRight: '2%', color: theme.dullText }} >{item.user}</Text>
                             </View>
 
-                            <Button
-                                type="outline"
-                                onPress={() => Linking.openURL(`google.navigation:q=${item.Location.coords.latitude}+${item.Location.coords.longitude}`)}
-                                buttonStyle={{
-                                    backgroundColor: theme.backgroundColor,
-                                    borderColor: theme.primaryColor,
-                                    borderWidth: 2,
-                                }}
-                                containerStyle={{
-                                    marginRight: 0,
-                                    marginLeft: 0
-                                }}
-                                title="Go!"
-                            />
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+                                <Button
+                                    type="outline"
+                                    onPress={() => Linking.openURL(`google.navigation:q=${item.Location.coords.latitude}+${item.Location.coords.longitude}`)}
+                                    buttonStyle={{
+                                        backgroundColor: theme.backgroundColor,
+                                        borderColor: theme.primaryColor,
+                                        borderWidth: 2,
+                                    }}
+                                    containerStyle={{
+                                        width: '50%',
+                                        // marginRight: 0,
+                                        // marginLeft: 0
+                                    }}
+                                    title="Go!"
+                                />
+                                <Button
+                                    type="outline"
+                                    onPress={() => navigation.navigate('Chat', {
+                                        uid_of_card: item.UserID
+                                    })}
+                                    buttonStyle={{
+                                        backgroundColor: theme.primaryColor,
+                                        borderColor: theme.primaryColor,
+                                        borderWidth: 2,
+                                    }}
+                                    containerStyle={{
+                                        width: '50%',
+                                    }}
+                                    title="Contact"
+                                />
+
+                            </View>
 
                         </View>
                     </Card>
@@ -101,20 +124,33 @@ const Volunteer = ({ navigation }) => {
         // console.log(User)
     }
 
+    // FETCHING DATA
     const FetchItems = () => {
         setcarouselItems([])
         var tempData = []
         const db = firebase.firestore()
         var DonorRef = db.collection("Donor");
+        // DonorRef.onSnapshot(snap => {
+        //     for (var i = 0; i < snap.docs.length; i++) {
+        //         tempData.push(snap.docs[i].data())
+        //     }
+        // });
+        // setcarouselItems(tempData)
+        // console.log(tempData)
         DonorRef.orderBy("Location.timestamp", "desc").onSnapshot(snapshot => {
+            tempData = []
             snapshot.docs.forEach(doc => {
                 //console.log(doc.data())
                 tempData.push(doc.data())
+                setcarouselItems(tempData)
+
             });
-            setcarouselItems(tempData)
+
+            //  setcarouselItems((carouselItems) => [...carouselItems, tempData]);
+
+
 
         })
-
 
     }
 
@@ -125,27 +161,31 @@ const Volunteer = ({ navigation }) => {
 
     }, [])
 
-
+    useEffect(() => {
+        console.log(carouselItems)
+        console.log("updated")
+    }, [carouselItems])
     return (
 
-
         <View style={theme.appearanceContainer}>
-            <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
-            <Text style={theme.headerText}>Foods Avaliable </Text>
-            <View style={{ flex: 1, flexDirection: 'row', }}>
+            <ScrollView>
+                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
+                <Text style={theme.headerText}>Foods Avaliable </Text>
+                <View style={{ flex: 1, flexDirection: 'row', }}>
 
-                <Carousel
-                    ref={carouselRef}
-                    data={carouselItems}
-                    layout='default'
-                    layoutCardOffset={11}
-                    renderItem={_renderItem}
-                    sliderWidth={200}
-                    itemWidth={355}
-                    onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
-                />
+                    <Carousel
+                        ref={carouselRef}
+                        data={carouselItems}
+                        layout='stack'
+                        layoutCardOffset={11}
+                        renderItem={_renderItem}
+                        sliderWidth={200}
+                        itemWidth={355}
+                        onSnapToItem={(activeIndex) => setactiveIndex(activeIndex)}
+                    />
 
-            </View>
+                </View>
+            </ScrollView>
         </View>
     );
 }

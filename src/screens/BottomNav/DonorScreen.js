@@ -188,16 +188,17 @@ const DonorScreen = ({ navigation }) => {
                 Alert.alert("UPLOADED IMAGE");
                 console.log("IMAGE THAT IS NOT A STATE IS ,", img)
                 if (img != null || "") {
-                    uploadToFireStore(db, UID, PickupWhere, FoodItems, date, location, img);
+                    uploadToFireStore(db, UID, User, PickupWhere, FoodItems, date, location, img);
                 }
             })
 
         }
 
-        async function uploadToFireStore(db, User, PickupWhere, FoodItems, date, location, img) {
+        async function uploadToFireStore(db, UserID, UserName, PickupWhere, FoodItems, date, location, img) {
             console.log("FROM FIREBASE CALLING , ", img);
             db.collection("Donor").add({
-                UserID: User,
+                UserName : UserName,
+                UserID: UserID, 
                 PickupWhere: PickupWhere,
                 FoodItems: FoodItems,
                 DateOfPickup: date.toDateString(),

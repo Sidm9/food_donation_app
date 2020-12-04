@@ -2,7 +2,7 @@ import React  from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen, LoadingScreen, BottomNav, Profile } from './src/screens'
+import { LoginScreen, HomeScreen, RegistrationScreen, VolunteerScreen, DonorScreen, LoadingScreen, BottomNav, Profile , Chat } from './src/screens'
 
 
 
@@ -35,6 +35,7 @@ export default function App() {
         <Stack.Screen name="Volunteer" component={VolunteerScreen} />
         <Stack.Screen options={{ headerShown: null }} name="BottomNav" component={BottomNav} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Chat" component={Chat} />
 
       </Stack.Navigator>
     </NavigationContainer>

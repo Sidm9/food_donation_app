@@ -14,3 +14,4 @@ export { default as BottomNav } from './BottomNav/BottomNav'
 
 export { default as Profile } from './BottomNav/Profile'
 
+export { default as Chat } from './Chat/ChatScreen';
