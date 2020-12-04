@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Text, Card, ThemeProvider, Button } from 'react-native-elements'
-import { Linking, ScrollView, View, RefreshControl } from 'react-native';
+import { Linking, ScrollView, View, RefreshControl, LogBox } from 'react-native';
 import theme from '../GlobalStyles';
 import Carousel from 'react-native-snap-carousel';
 import { GetUser } from '../../TOKEN'
@@ -93,7 +93,10 @@ const Volunteer = ({ navigation }) => {
                                 <Button
                                     type="outline"
                                     onPress={() => navigation.navigate('Chat', {
-                                        uid_of_card: item.UserID
+                                        uid_of_card: item.UserID,
+                                        FoodItems: item.FoodItems,
+                                        Time: item.TimeOfPickup
+                                        
                                     })}
                                     buttonStyle={{
                                         backgroundColor: theme.primaryColor,
@@ -176,7 +179,7 @@ const Volunteer = ({ navigation }) => {
                     <Carousel
                         ref={carouselRef}
                         data={carouselItems}
-                        layout='stack'
+                        layout='default'
                         layoutCardOffset={11}
                         renderItem={_renderItem}
                         sliderWidth={200}

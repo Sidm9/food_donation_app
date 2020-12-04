@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat';
 import { View } from 'react-native'
 import ChatConfig from '../Chat/ChatConfig';
@@ -9,10 +9,10 @@ import { GetUID, UserId } from '../../TOKEN';
 
 const Chat = ({ route, navigation }) => {
 
-    const { uid_of_card } = route.params;
+    const { uid_of_card, FoodItems, Time } = route.params;
     const [messages, setMessages] = useState([]);
     const [UserID, setUserID] = useState();
-    
+
 
     const GetCurrentUserId = async () => {
         const res = await GetUID();
@@ -28,15 +28,40 @@ const Chat = ({ route, navigation }) => {
         GetCurrentUserId();
 
         setMessages([
+
+
             {
-                _id: 1,
-                text: 'Hello developer',
+                _id: 5,
+                text: "Time is " + Time,
                 createdAt: new Date(),
                 user: {
                     _id: 2,
-                    name: 'React Native',
+                    name: 'Siddharth',
                 },
             },
+
+            {
+                _id: 3,
+                text: "I am donating " + FoodItems,
+                createdAt: new Date(),
+                user: {
+                    _id: 2,
+                    name: 'Siddharth',
+                },
+            },
+
+            {
+                _id: 1,
+                text: 'Hello There!',
+                createdAt: new Date(),
+                user: {
+                    _id: 2,
+                    name: 'Siddharth',
+                },
+            },
+
+
+
         ])
     }, [])
 

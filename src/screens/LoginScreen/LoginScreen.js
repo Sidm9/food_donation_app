@@ -104,10 +104,10 @@ const LoginScreen = ({ navigation }) => {
                     />
 
 
-                    <Button
+                    {/* <Button
                         title="Bypass (DEV) "
                         onPress={() => navigation.navigate('BottomNav')}
-                    />
+                    /> */}
 
                     <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
 
