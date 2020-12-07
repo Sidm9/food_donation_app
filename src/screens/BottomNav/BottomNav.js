@@ -7,7 +7,7 @@ import Donor from './DonorScreen';
 import Profile from './Profile'
 import theme from '../GlobalStyles';
 import { GetUser } from '../../TOKEN';
-
+console.disableYellowBox = true;
 
 const Tab = createBottomTabNavigator();
 

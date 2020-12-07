@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
-import { View, TouchableOpacity, StatusBar, BackHandler, Alert } from 'react-native';
+import { View, TouchableOpacity, StatusBar, BackHandler } from 'react-native';
 import { CreatUserToken, UserId } from '../../TOKEN.js';
 const LoginScreen = ({ navigation }) => {
 
