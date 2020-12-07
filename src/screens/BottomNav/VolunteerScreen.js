@@ -13,17 +13,6 @@ const Volunteer = ({ navigation }) => {
     const carouselRef = useRef(null)
     const [carouselItems, setcarouselItems] = useState([]);
 
-    const [refreshing, setRefreshing] = React.useState(false);
-
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        console.log("Refreshed!")
-        wait(2000).then(() => {
-            setRefreshing(false)
-            FetchItems();
-        });
-    }, []);
-
     // CARDS RENDER
     const _renderItem = ({ item, index, }) => {
 
@@ -32,10 +21,7 @@ const Volunteer = ({ navigation }) => {
 
             <ThemeProvider theme={theme}>
 
-                <ScrollView
-
-                    refreshControl={
-                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+                <ScrollView>
 
 
                     <Card>
@@ -96,7 +82,7 @@ const Volunteer = ({ navigation }) => {
                                         uid_of_card: item.UserID,
                                         FoodItems: item.FoodItems,
                                         Time: item.TimeOfPickup
-                                        
+
                                     })}
                                     buttonStyle={{
                                         backgroundColor: theme.primaryColor,
@@ -129,32 +115,12 @@ const Volunteer = ({ navigation }) => {
 
     // FETCHING DATA
     const FetchItems = () => {
-        setcarouselItems([])
-        var tempData = []
-        const db = firebase.firestore()
-        var DonorRef = db.collection("Donor");
-        // DonorRef.onSnapshot(snap => {
-        //     for (var i = 0; i < snap.docs.length; i++) {
-        //         tempData.push(snap.docs[i].data())
-        //     }
-        // });
-        // setcarouselItems(tempData)
-        // console.log(tempData)
-        DonorRef.orderBy("Location.timestamp", "desc").onSnapshot(snapshot => {
-            tempData = []
-            snapshot.docs.forEach(doc => {
-                //console.log(doc.data())
-                tempData.push(doc.data())
-                setcarouselItems(tempData)
-
-            });
-
-            //  setcarouselItems((carouselItems) => [...carouselItems, tempData]);
-
-
-
+        const ref = firebase.firestore().collection("Donor")
+        ref.orderBy("Location.timestamp", "desc").onSnapshot((snapshot) => {
+            const temp = []
+            snapshot.forEach(doc => temp.push(({ ...doc.data() })))
+            setcarouselItems(temp);
         })
-
     }
 
     useEffect(() => {
