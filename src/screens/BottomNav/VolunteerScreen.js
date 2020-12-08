@@ -8,6 +8,9 @@ import firebase from '../../firestore.js'
 
 
 const Volunteer = ({ navigation }) => {
+
+    var BB = '';
+
     const [User, setUser] = useState('')
     const [activeIndex, setactiveIndex] = useState(0)
     const carouselRef = useRef(null)
@@ -109,7 +112,10 @@ const Volunteer = ({ navigation }) => {
     const GetUserToken = async () => {
         let a = ""
         a = await GetUser();
+        BB = a;
+        
         setUser(a);
+        console.log("owueihowefh,",User)
         // console.log(User)
     }
 
@@ -128,7 +134,7 @@ const Volunteer = ({ navigation }) => {
         FetchItems()
 
 
-    }, [])
+    }, [User,setUser])
 
     // useEffect(() => {
     //     console.log(carouselItems)

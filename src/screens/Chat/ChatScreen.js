@@ -23,8 +23,6 @@ const Chat = ({ route, navigation }) => {
                 .filter(({ type }) => type === 'added')
                 .map(({ doc }) => {
                     const message = doc.data()
-                    //createdAt is firebase.firestore.Timestamp instance
-                    //https://firebase.google.com/docs/reference/js/firebase.firestore.Timestamp
                     return { ...message, createdAt: message.createdAt.toDate() }
                 })
                 .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
@@ -70,7 +68,7 @@ const Chat = ({ route, navigation }) => {
     return (
         <View style={theme.appearanceContainer}>
             <ThemeProvider theme={theme}>
-                <GiftedChat messages={messages} user={bho} onSend={handleSend} />
+                <GiftedChat textInputStyle = {theme.textInputStyle} messages={messages} user={bho} onSend={handleSend} />
             </ThemeProvider>
         </View>
     )

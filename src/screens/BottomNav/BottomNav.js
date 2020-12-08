@@ -21,7 +21,7 @@ const BottomNav = () => {
         USERTOKEN = await GetUser();
         setUser(a);
 
-        console.log(a);
+        console.log("huhahuhuahuahuha" ,a);
     }
 
     useEffect(() => {

@@ -50,11 +50,11 @@ const Profile = ({ navigation }) => {
                         <Text style={theme.headerText}> Profile {User}  </Text>
                         <Button onPress={handleLogout} title="Logout" />
 
-                        <FlatList
+                        {/* <FlatList
                             data={
                                 spells
                             }
-                            renderItem={({ item }) =>
+                            renderItem={({ item ,k}) =>
                                 <Card>
                                     <Card.Title>
                                         {item.TimeOfPickup}
@@ -70,7 +70,7 @@ const Profile = ({ navigation }) => {
                                 </Card>
 
                             }
-                        />
+                        /> */}
 
                     </View>
                 </ThemeProvider>
