@@ -25,7 +25,7 @@ export const GetUser = async () => {
         const value = await AsyncStorage.getItem('key');
         if (value !== null || undefined) {
             // We have data!!
-            console.log("fron the getuser ", value);
+            console.log("TOKE || from the getuser ", value);
             USERVALUE = value;
             USER_TOKEN = USERVALUE.split("@")
         }
@@ -34,7 +34,6 @@ export const GetUser = async () => {
         value = "NONE"
         console.log(error)
     }
-
     return (USER_TOKEN[0]);
 }
 
@@ -44,7 +43,7 @@ export const GetUID = async () => {
     try {
         const value = await AsyncStorage.getItem('uid');
         if (value !== null || undefined) {
-            console.log("UID of User: ", value);
+            console.log(" TOKEN || UID of User: ", value);
             res = value;
         }
     } catch (error) {
@@ -66,4 +65,5 @@ export const RemoveUser = async () => {
     }
 
     console.log('Logout!!')
+    
 }

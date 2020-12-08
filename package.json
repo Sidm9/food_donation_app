@@ -36,6 +36,7 @@
     "react-native-sectioned-multi-select": "^0.7.7",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-web": "~0.11.7",
+    "stream-chat-expo": "^2.1.0",
     "yarn": "^1.22.5"
   },
   "devDependencies": {

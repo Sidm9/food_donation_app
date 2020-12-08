@@ -3,7 +3,7 @@ import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
 import firebase from '../../firestore.js';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar, BackHandler } from 'react-native';
-import { CreatUserToken, UserId } from '../../TOKEN.js';
+import { CreatUserToken, GetUser, UserId } from '../../TOKEN.js';
 const LoginScreen = ({ navigation }) => {
 
     const [emailAddress, setemailAddress] = useState('');
@@ -36,6 +36,7 @@ const LoginScreen = ({ navigation }) => {
                 console.log("You are in !!");
                 addToLocalStorage(emailAddress);
                 addUserIdToLocalStorage(user.user.uid);
+                GetUser();
                 navigation.navigate('BottomNav');
             })
             .catch(function (error) {

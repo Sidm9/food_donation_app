@@ -130,10 +130,10 @@ const Volunteer = ({ navigation }) => {
 
     }, [])
 
-    useEffect(() => {
-        console.log(carouselItems)
-        console.log("updated")
-    }, [carouselItems])
+    // useEffect(() => {
+    //     console.log(carouselItems)
+    //     console.log("updated")
+    // }, [carouselItems])
     return (
 
         <View style={theme.appearanceContainer}>

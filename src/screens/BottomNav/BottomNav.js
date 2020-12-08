@@ -32,6 +32,7 @@ const BottomNav = () => {
         <>
             <StatusBar barStyle="light-content" backgroundColor='#101010' />
             <Tab.Navigator lazy={true}
+                initialRouteName = "Volunteer"
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
                         if (route.name === 'Donor') {
