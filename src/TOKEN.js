@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 export const CreatUserToken = async (value) => {
     try {
         await AsyncStorage.setItem('key', value)
@@ -19,22 +18,24 @@ export const UserId = async (value) => {
 
 
 export const GetUser = async () => {
-    let USERVALUE = ""
-    var USER_TOKEN = []
+  
     try {
         const value = await AsyncStorage.getItem('key');
         if (value !== null || undefined) {
+            const USERVALUE = value
+           
             // We have data!!
             console.log("TOKE || from the getuser ", value);
-            USERVALUE = value;
-            USER_TOKEN = USERVALUE.split("@")
+            const name = USERVALUE.split("@")[0]
+            console.log("NAME");
+            return (name);
         }
     } catch (error) {
         // Error retrieving data
         value = "NONE"
         console.log(error)
     }
-    return (USER_TOKEN[0]);
+   
 }
 
 

@@ -84,7 +84,8 @@ const Volunteer = ({ navigation }) => {
                                     onPress={() => navigation.navigate('Chat', {
                                         uid_of_card: item.UserID,
                                         FoodItems: item.FoodItems,
-                                        Time: item.TimeOfPickup
+                                        Time: item.TimeOfPickup,
+                                        Timestamp : item.Location.timestamp
 
                                     })}
                                     buttonStyle={{
@@ -110,13 +111,13 @@ const Volunteer = ({ navigation }) => {
     };
 
     const GetUserToken = async () => {
-        let a = ""
-        a = await GetUser();
-        BB = a;
-        
-        setUser(a);
-        console.log("owueihowefh,",User)
-        // console.log(User)
+        try {
+            const a = await GetUser();
+            console.log("NAME from UI: ", a)
+            setUser(a);
+        } catch (e) {
+            console.log("ERROR IN TOKEN GETTER: ", e)
+        }
     }
 
     // FETCHING DATA
@@ -129,12 +130,16 @@ const Volunteer = ({ navigation }) => {
         })
     }
 
-    useEffect(() => {
+    useEffect(()=>{
         GetUserToken()
+    }, [])
+
+  
+
+    useEffect(() => {
+        console.log("USER FOUND IN UI: ", User)
         FetchItems()
-
-
-    }, [User,setUser])
+    }, [User])
 
     // useEffect(() => {
     //     console.log(carouselItems)
@@ -144,7 +149,7 @@ const Volunteer = ({ navigation }) => {
 
         <View style={theme.appearanceContainer}>
             <ScrollView>
-                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User}</Text></Text>
+                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User} </Text></Text>
                 <Text style={theme.headerText}>Foods Avaliable </Text>
                 <View style={{ flex: 1, flexDirection: 'row', }}>
 

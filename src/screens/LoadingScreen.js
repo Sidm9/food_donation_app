@@ -4,7 +4,6 @@ import theme from './GlobalStyles';
 import { Text } from 'react-native-elements';
 import { ActivityIndicator, View, ThemeProvider } from 'react-native';
 import { GetUser } from '../TOKEN';
-import { LogBox } from 'react-native';
 
 const LoadingScreen = ({ navigation }) => {
     const [loaded, setloaded] = useState(false)

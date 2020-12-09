@@ -9,11 +9,21 @@ import firebase from '../../firestore';
 const Chat = ({ route, navigation }) => {
 
     // var user = null
-    const { uid_of_card, FoodItems, Time } = route.params;
+    const { uid_of_card, FoodItems, Time, Timestamp } = route.params;
+    console.log(typeof Timestamp.toString(), Timestamp.toString())
     const [messages, setMessages] = useState([]);
-    const [bho, setUser] = useState(null);
-    const chatsRef = firebase.firestore().collection('chats');
+    const [User, setUser] = useState(null);
+    const chatsRef = firebase.firestore().collection('chats').doc(Timestamp.toString()).collection('messages');
+// THIS UID_ O_CARD SHOULD BE THE TIMESTAMP RIGHT?????
+// UID OF THIS DONATION ITEM I MEANT
+    // THE UID OF CARD PART IS THE UID OF THE USER WHO UPLOADED THIS CARD
+    // LEMME PASS A TIMESTAMP WILL IT WORK?
+    // YOU WILL HAVE TO CONVERT IT TO A STRING WITH NO SPECIAL CHARS
 
+    // now try
+    //?
+    /// YEAH OKA
+    //stringify dones't work like that
 
     useEffect(() => {
         readUser()
@@ -56,11 +66,15 @@ const Chat = ({ route, navigation }) => {
         // if (user) {
         //     setUser(JSON.parse(user));
         // }
-        console.log("nig" , user);
+        console.log("nig" , User);
     }
 
-    async function handleSend(messages) {
+    // ywah  ywah ywah just wait 1 min
+    // FIrst the chat room part
 
+
+    async function handleSend(messages) {
+        /// WRITTING THE DOC PAR T
         const writes = messages.map((m) => chatsRef.add(m))
         await Promise.all(writes)
     }
@@ -68,7 +82,7 @@ const Chat = ({ route, navigation }) => {
     return (
         <View style={theme.appearanceContainer}>
             <ThemeProvider theme={theme}>
-                <GiftedChat textInputStyle = {theme.textInputStyle} messages={messages} user={bho} onSend={handleSend} />
+                <GiftedChat textInputStyle = {theme.textInputStyle} messages={messages} user={User} onSend={handleSend} />
             </ThemeProvider>
         </View>
     )

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider, Text, Button, Card } from 'react-native-elements'
 import theme from '../GlobalStyles';
-import { GetUser, RemoveUser } from '../../TOKEN'
-import { View, ScrollView, FlatList } from 'react-native';
+import { GetUID, GetUser, RemoveUser } from '../../TOKEN'
+import { View, ScrollView, FlatList, SafeAreaView } from 'react-native';
 import firebase from 'firebase';
 
 
 
 const Profile = ({ navigation }) => {
     const [User, setUser] = useState("");
-    const [spells, setSpells] = useState([]);
+    const [carouselItems, setcarouselItems] = useState([]);
+
     const GetUserToken = async () => {
         let a = ""
         a = await GetUser();
@@ -17,28 +18,43 @@ const Profile = ({ navigation }) => {
         // console.log(User)
     }
 
+
+
+    const fetchData = async () => {
+        console.log("USER ID PROFILE PAGE: ", User)
+        const ref = firebase.firestore().collection("Donor")
+        ref.onSnapshot((snapshot) => {
+            const temp = []
+            snapshot.forEach(doc => temp.push(({ ...doc.data() })))
+            setcarouselItems(temp);
+        })
+    }
+
+    const getUID = async () => {
+        await GetUser();
+        const uid = await GetUID();
+        await fetchData(uid);
+    }
+
     useEffect(() => {
         (async () => {
             let a = ""
+
             a = await GetUser();
+            temp = await GetUID();
+            console.log(temp);
             setUser(a)
+            console.log(a);
         })
             ()
 
-
-
-        const fetchData = async () => {
-            console.log("fetch")
-            const db = firebase.firestore()
-            const data = await db.collection("Donor").get()
-            setSpells(data.docs.map(doc => doc.data()))
-            console.log(spells.PickupWhere)
-        }
         fetchData()
     }, [])
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         RemoveUser();
+        let a = await GetUser();
+        console.log("After Removed", a);
         navigation.navigate('Login');
     }
 
@@ -49,28 +65,29 @@ const Profile = ({ navigation }) => {
                     <View style={theme.mainContainer}>
                         <Text style={theme.headerText}> Profile {User}  </Text>
                         <Button onPress={handleLogout} title="Logout" />
-
-                        {/* <FlatList
-                            data={
-                                spells
-                            }
-                            renderItem={({ item ,k}) =>
-                                <Card>
-                                    <Card.Title>
-                                        {item.TimeOfPickup}
-                                    </Card.Title>
-
-
-
-                                    <Text style={{ textAlign: "center" }}>
-                                        {item.FoodItems}
-                                    </Text>
+                        <SafeAreaView style={{ flex: 1 }}>
+                            <FlatList
+                                data={
+                                    carouselItems
+                                }
+                                renderItem={({ item, k }) =>
+                                    <Card>
+                                        <Card.Title>
+                                            {item.TimeOfPickup}
+                                        </Card.Title>
 
 
-                                </Card>
 
-                            }
-                        /> */}
+                                        <Text style={{ textAlign: "center" }}>
+                                            {item.FoodItems}
+                                        </Text>
+
+
+                                    </Card>
+
+                                }
+                            />
+                        </SafeAreaView>
 
                     </View>
                 </ThemeProvider>
