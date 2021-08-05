@@ -1,5 +1,5 @@
 node_modules/**/*
-src/firestore.js
+src/firebaseConfig.js
 .json
 .expo/*
 npm-debug.*

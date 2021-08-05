@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
-import firebase from '../../firestore.js';
+import fire from '../../firestore';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity } from 'react-native';
 
@@ -36,8 +36,8 @@ const RegisterationScreen = ({ navigation }) => {
     const handleSubmit = () => {
 
         if (password.trim() === conPassword.trim()) {
-
-            firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then(() => {
+            console.log("ok")
+            fire.auth().createUserWithEmailAndPassword(emailAddress, password).then(() => {
                 console.log("OKKKK");
                 navigation.navigate('Login');
                 clearAll();

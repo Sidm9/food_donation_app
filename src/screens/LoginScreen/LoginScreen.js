@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Text, Button, ThemeProvider } from 'react-native-elements';
-import firebase from '../../firestore.js';
+import fire from '../../firestore';
 import theme from "../GlobalStyles";
 import { View, TouchableOpacity, StatusBar, BackHandler } from 'react-native';
 import { CreatUserToken, GetUser, UserId } from '../../TOKEN.js';
@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
 
     const handleSubmit = () => {
         console.log('Button Pressed!!')
-        firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+        fire.auth().signInWithEmailAndPassword(emailAddress, password)
             .then((user) => {
                 console.log("You are in !!");
                 addToLocalStorage(emailAddress);
@@ -105,10 +105,10 @@ const LoginScreen = ({ navigation }) => {
                     />
 
 
-                    {/* <Button
+                    <Button
                         title="Bypass (DEV) "
                         onPress={() => navigation.navigate('BottomNav')}
-                    /> */}
+                    />
 
                     <TouchableOpacity onPress={() => navigation.navigate('Registeration')}>
 

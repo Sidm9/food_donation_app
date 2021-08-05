@@ -24,7 +24,7 @@ const Theme = {
         fontSize: 40,
         fontFamily: 'ProductSansBold',
         marginTop: '5%',
-        marginBottom: '5%',
+        marginBottom: '2%',
         marginRight: '3%',
         marginLeft: '3%',
     },

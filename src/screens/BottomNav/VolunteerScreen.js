@@ -46,7 +46,7 @@ const Volunteer = ({ navigation }) => {
 
                             <Text style={{ color: theme.dullText }}>
                                 Date: &nbsp;
-                                    <Text>
+                                <Text>
                                     {item.DateOfPickup}
                                 </Text>
                             </Text>
@@ -85,7 +85,7 @@ const Volunteer = ({ navigation }) => {
                                         uid_of_card: item.UserID,
                                         FoodItems: item.FoodItems,
                                         Time: item.TimeOfPickup,
-                                        Timestamp : item.Location.timestamp
+                                        Timestamp: item.Location.timestamp
 
                                     })}
                                     buttonStyle={{
@@ -130,11 +130,11 @@ const Volunteer = ({ navigation }) => {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         GetUserToken()
     }, [])
 
-  
+
 
     useEffect(() => {
         console.log("USER FOUND IN UI: ", User)
@@ -149,7 +149,7 @@ const Volunteer = ({ navigation }) => {
 
         <View style={theme.appearanceContainer}>
             <ScrollView>
-                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User} </Text></Text>
+                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> Siddharth </Text></Text>
                 <Text style={theme.headerText}>Foods Avaliable </Text>
                 <View style={{ flex: 1, flexDirection: 'row', }}>
 
