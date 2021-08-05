@@ -1,4 +1,4 @@
-# ** Simple Food Donation app**
+# Simple Food Donation app
 ### Features 
 #### 1.) Authentication
 
