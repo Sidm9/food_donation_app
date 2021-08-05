@@ -149,7 +149,7 @@ const Volunteer = ({ navigation }) => {
 
         <View style={theme.appearanceContainer}>
             <ScrollView>
-                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> Siddharth </Text></Text>
+                <Text style={theme.headerText}>Hi!<Text style={{ color: theme.primaryColor, fontFamily: 'ProductSans' }}> {User} </Text></Text>
                 <Text style={theme.headerText}>Foods Avaliable </Text>
                 <View style={{ flex: 1, flexDirection: 'row', }}>
 
